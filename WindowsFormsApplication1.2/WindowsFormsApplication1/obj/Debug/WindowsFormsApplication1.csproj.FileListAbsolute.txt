@@ -1,0 +1,14 @@
+C:\Users\Jovi\Documents\Visual Studio 2012\Projects\WindowsFormsApplication1\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe.config
+C:\Users\Jovi\Documents\Visual Studio 2012\Projects\WindowsFormsApplication1\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe
+C:\Users\Jovi\Documents\Visual Studio 2012\Projects\WindowsFormsApplication1\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
+C:\Users\Jovi\Documents\Visual Studio 2012\Projects\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csprojResolveAssemblyReference.cache
+C:\Users\Jovi\Documents\Visual Studio 2012\Projects\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\FuaClinic1._2.AddPatientDetails.resources
+C:\Users\Jovi\Documents\Visual Studio 2012\Projects\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\FuaClinic1._2.Delete.resources
+C:\Users\Jovi\Documents\Visual Studio 2012\Projects\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Diagnoses.resources
+C:\Users\Jovi\Documents\Visual Studio 2012\Projects\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\FuaClinic1._2.Home.resources
+C:\Users\Jovi\Documents\Visual Studio 2012\Projects\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Patients.resources
+C:\Users\Jovi\Documents\Visual Studio 2012\Projects\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\Jovi\Documents\Visual Studio 2012\Projects\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\FuaClinic1._2.UpdatePatient.resources
+C:\Users\Jovi\Documents\Visual Studio 2012\Projects\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csproj.GenerateResource.Cache
+C:\Users\Jovi\Documents\Visual Studio 2012\Projects\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
+C:\Users\Jovi\Documents\Visual Studio 2012\Projects\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb

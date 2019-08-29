@@ -1,0 +1,6 @@
+C:\Users\mllrdevph13\Desktop\WindowsFormsApplication1\FuaClinic.DataAccess\bin\Debug\FuaClinic.DataAccess.dll
+C:\Users\mllrdevph13\Desktop\WindowsFormsApplication1\FuaClinic.DataAccess\bin\Debug\FuaClinic.DataAccess.pdb
+C:\Users\mllrdevph13\Desktop\WindowsFormsApplication1\FuaClinic.DataAccess\obj\Debug\FuaClinic.DataAccess.dll
+C:\Users\mllrdevph13\Desktop\WindowsFormsApplication1\FuaClinic.DataAccess\obj\Debug\FuaClinic.DataAccess.pdb
+C:\Users\mllrdevph13\Desktop\WindowsFormsApplication1\FuaClinic.DataAccess\bin\Debug\Dapper.dll
+C:\Users\mllrdevph13\Desktop\WindowsFormsApplication1\FuaClinic.DataAccess\bin\Debug\Dapper.xml

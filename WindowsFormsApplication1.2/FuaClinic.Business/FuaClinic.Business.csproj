@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5096A89F-81A0-4A7B-86B2-1B50E6B951D8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FuaClinic.Business</RootNamespace>
+    <AssemblyName>FuaClinic.Business</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Dapper, Version=1.40.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.40\lib\net45\Dapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Managers\AddressManager.cs" />
+    <Compile Include="Managers\AppointmentManager.cs" />
+    <Compile Include="Managers\BaseManager.cs" />
+    <Compile Include="Managers\ConsultationManager.cs" />
+    <Compile Include="Managers\EmergencyContactManager.cs" />
+    <Compile Include="Managers\ManagerInterfaces\IAddressManager.cs" />
+    <Compile Include="Managers\ManagerInterfaces\IAppointmentManager.cs" />
+    <Compile Include="Managers\ManagerInterfaces\IConsultationManager.cs" />
+    <Compile Include="Managers\ManagerInterfaces\IEmergencyContactManager.cs" />
+    <Compile Include="Managers\ManagerInterfaces\IManager.cs" />
+    <Compile Include="Managers\ManagerInterfaces\IPatientArchiveManager.cs" />
+    <Compile Include="Managers\ManagerInterfaces\IPatientManager.cs" />
+    <Compile Include="Managers\PatientArchiveManager.cs" />
+    <Compile Include="Managers\PatientManager.cs" />
+    <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\Appointment.cs" />
+    <Compile Include="Models\Consulation.cs" />
+    <Compile Include="Models\Diagnosis.cs" />
+    <Compile Include="Models\EmergencyContact.cs" />
+    <Compile Include="Models\Patient.cs" />
+    <Compile Include="Models\PatientArchive.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\AddressRepository.cs" />
+    <Compile Include="Repositories\AppointmentRepository.cs" />
+    <Compile Include="Repositories\BaseRepository.cs" />
+    <Compile Include="Repositories\ConsulationRepository.cs" />
+    <Compile Include="Repositories\DiagnosisRepository.cs" />
+    <Compile Include="Repositories\EmergencyContactRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IAddressRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IAppointmentRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IConsultationRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IEmergencyContactRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IPatientArchiveRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IPatientRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IRepository.cs" />
+    <Compile Include="Repositories\PatientArchiveRepository.cs" />
+    <Compile Include="Repositories\PatientRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

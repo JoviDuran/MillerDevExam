@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Windows Desktop
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuaClinic", "WindowsFormsApplication1\FuaClinic.csproj", "{57C0F11E-13D5-4A38-902D-F4F1F196DB6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuaClinic.Business", "FuaClinic.Business\FuaClinic.Business.csproj", "{5096A89F-81A0-4A7B-86B2-1B50E6B951D8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{57C0F11E-13D5-4A38-902D-F4F1F196DB6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57C0F11E-13D5-4A38-902D-F4F1F196DB6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57C0F11E-13D5-4A38-902D-F4F1F196DB6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57C0F11E-13D5-4A38-902D-F4F1F196DB6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5096A89F-81A0-4A7B-86B2-1B50E6B951D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5096A89F-81A0-4A7B-86B2-1B50E6B951D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5096A89F-81A0-4A7B-86B2-1B50E6B951D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5096A89F-81A0-4A7B-86B2-1B50E6B951D8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
