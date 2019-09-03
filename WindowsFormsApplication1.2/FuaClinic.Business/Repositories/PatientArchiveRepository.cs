@@ -16,9 +16,10 @@ namespace FuaClinic.Business.Repositories
 
         public List<PatientArchive> SearchPatients(DynamicParameters param)
         {
-            var result = Connection.Query<PatientArchive>("SearchPatientArchive", param, commandType:
+            var result = Connection.Query<PatientArchive>("SearchPatients", param, commandType:
             CommandType.StoredProcedure).ToList();
             return result;
         }
     }
+       
 }

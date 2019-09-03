@@ -69,6 +69,14 @@
             this.btnDeleteAppointment = new System.Windows.Forms.Button();
             this.dataGridViewAppointments = new System.Windows.Forms.DataGridView();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btnRefreshPatientArchive = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtGenderPA = new System.Windows.Forms.TextBox();
+            this.btnSearchPatientArchive = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtSearchFirstNamePA = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtSearchLastNamePA = new System.Windows.Forms.TextBox();
             this.dataGridViewPArchive = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPatients)).BeginInit();
             this.panel1.SuspendLayout();
@@ -162,7 +170,7 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(0, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1018, 115);
+            this.panel1.Size = new System.Drawing.Size(1018, 105);
             this.panel1.TabIndex = 74;
             // 
             // pictureBox1
@@ -183,7 +191,7 @@
             this.tabControl1.Controls.Add(this.AppointmentsTab);
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.Location = new System.Drawing.Point(-4, 145);
+            this.tabControl1.Location = new System.Drawing.Point(-4, 117);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1026, 451);
@@ -396,18 +404,19 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(354, 36);
+            this.label5.Location = new System.Drawing.Point(384, 41);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(40, 16);
             this.label5.TabIndex = 83;
             this.label5.Text = "Date:";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // dateTimePickerAppointment
             // 
             this.dateTimePickerAppointment.CustomFormat = "yyyy-MM-dd";
             this.dateTimePickerAppointment.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right;
             this.dateTimePickerAppointment.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePickerAppointment.Location = new System.Drawing.Point(638, 36);
+            this.dateTimePickerAppointment.Location = new System.Drawing.Point(668, 41);
             this.dateTimePickerAppointment.Name = "dateTimePickerAppointment";
             this.dateTimePickerAppointment.Size = new System.Drawing.Size(111, 22);
             this.dateTimePickerAppointment.TabIndex = 82;
@@ -417,7 +426,7 @@
             // btnRefreshDataGridViewAppointments
             // 
             this.btnRefreshDataGridViewAppointments.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnRefreshDataGridViewAppointments.Location = new System.Drawing.Point(233, 31);
+            this.btnRefreshDataGridViewAppointments.Location = new System.Drawing.Point(263, 36);
             this.btnRefreshDataGridViewAppointments.Name = "btnRefreshDataGridViewAppointments";
             this.btnRefreshDataGridViewAppointments.Size = new System.Drawing.Size(96, 31);
             this.btnRefreshDataGridViewAppointments.TabIndex = 81;
@@ -430,7 +439,7 @@
             this.btnDeleteAppointment.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btnDeleteAppointment.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.btnDeleteAppointment.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeleteAppointment.Location = new System.Drawing.Point(233, 73);
+            this.btnDeleteAppointment.Location = new System.Drawing.Point(263, 78);
             this.btnDeleteAppointment.Name = "btnDeleteAppointment";
             this.btnDeleteAppointment.Size = new System.Drawing.Size(96, 35);
             this.btnDeleteAppointment.TabIndex = 9;
@@ -440,7 +449,7 @@
             // 
             // dataGridViewAppointments
             // 
-            this.dataGridViewAppointments.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this.dataGridViewAppointments.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewAppointments.BackgroundColor = System.Drawing.Color.White;
             this.dataGridViewAppointments.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
@@ -460,7 +469,7 @@
             dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewAppointments.DefaultCellStyle = dataGridViewCellStyle9;
-            this.dataGridViewAppointments.Location = new System.Drawing.Point(357, 73);
+            this.dataGridViewAppointments.Location = new System.Drawing.Point(271, 119);
             this.dataGridViewAppointments.Name = "dataGridViewAppointments";
             this.dataGridViewAppointments.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.dataGridViewAppointments.RowHeadersVisible = false;
@@ -469,12 +478,21 @@
             dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dataGridViewAppointments.RowsDefaultCellStyle = dataGridViewCellStyle10;
             this.dataGridViewAppointments.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewAppointments.Size = new System.Drawing.Size(392, 299);
+            this.dataGridViewAppointments.Size = new System.Drawing.Size(373, 252);
             this.dataGridViewAppointments.TabIndex = 0;
+            this.dataGridViewAppointments.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAppointments_CellContentClick);
             this.dataGridViewAppointments.DoubleClick += new System.EventHandler(this.ViewPatientInforThroughAppointments_Click);
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.btnRefreshPatientArchive);
+            this.tabPage1.Controls.Add(this.label9);
+            this.tabPage1.Controls.Add(this.txtGenderPA);
+            this.tabPage1.Controls.Add(this.btnSearchPatientArchive);
+            this.tabPage1.Controls.Add(this.label7);
+            this.tabPage1.Controls.Add(this.txtSearchFirstNamePA);
+            this.tabPage1.Controls.Add(this.label8);
+            this.tabPage1.Controls.Add(this.txtSearchLastNamePA);
             this.tabPage1.Controls.Add(this.dataGridViewPArchive);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
@@ -483,6 +501,82 @@
             this.tabPage1.TabIndex = 3;
             this.tabPage1.Text = "Patient Archive";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // btnRefreshPatientArchive
+            // 
+            this.btnRefreshPatientArchive.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnRefreshPatientArchive.Location = new System.Drawing.Point(81, 24);
+            this.btnRefreshPatientArchive.Name = "btnRefreshPatientArchive";
+            this.btnRefreshPatientArchive.Size = new System.Drawing.Size(90, 35);
+            this.btnRefreshPatientArchive.TabIndex = 87;
+            this.btnRefreshPatientArchive.Text = "Refresh";
+            this.btnRefreshPatientArchive.UseVisualStyleBackColor = false;
+            this.btnRefreshPatientArchive.Click += new System.EventHandler(this.btnRefreshPatientArchive_Click);
+            // 
+            // label9
+            // 
+            this.label9.AccessibleRole = System.Windows.Forms.AccessibleRole.Clock;
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(604, 77);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(56, 16);
+            this.label9.TabIndex = 86;
+            this.label9.Text = "Gender:";
+            // 
+            // txtGenderPA
+            // 
+            this.txtGenderPA.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtGenderPA.Location = new System.Drawing.Point(680, 74);
+            this.txtGenderPA.Name = "txtGenderPA";
+            this.txtGenderPA.Size = new System.Drawing.Size(98, 22);
+            this.txtGenderPA.TabIndex = 85;
+            // 
+            // btnSearchPatientArchive
+            // 
+            this.btnSearchPatientArchive.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnSearchPatientArchive.Location = new System.Drawing.Point(81, 65);
+            this.btnSearchPatientArchive.Name = "btnSearchPatientArchive";
+            this.btnSearchPatientArchive.Size = new System.Drawing.Size(90, 35);
+            this.btnSearchPatientArchive.TabIndex = 84;
+            this.btnSearchPatientArchive.Text = "Search";
+            this.btnSearchPatientArchive.UseVisualStyleBackColor = false;
+            this.btnSearchPatientArchive.Click += new System.EventHandler(this.btnSearchPatientArchive_Click);
+            // 
+            // label7
+            // 
+            this.label7.AccessibleRole = System.Windows.Forms.AccessibleRole.Clock;
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(197, 71);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(76, 16);
+            this.label7.TabIndex = 83;
+            this.label7.Text = "First Name:";
+            // 
+            // txtSearchFirstNamePA
+            // 
+            this.txtSearchFirstNamePA.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSearchFirstNamePA.Location = new System.Drawing.Point(276, 71);
+            this.txtSearchFirstNamePA.Name = "txtSearchFirstNamePA";
+            this.txtSearchFirstNamePA.Size = new System.Drawing.Size(98, 22);
+            this.txtSearchFirstNamePA.TabIndex = 82;
+            // 
+            // label8
+            // 
+            this.label8.AccessibleRole = System.Windows.Forms.AccessibleRole.Clock;
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(386, 74);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(76, 16);
+            this.label8.TabIndex = 81;
+            this.label8.Text = "Last Name:";
+            // 
+            // txtSearchLastNamePA
+            // 
+            this.txtSearchLastNamePA.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSearchLastNamePA.Location = new System.Drawing.Point(468, 71);
+            this.txtSearchLastNamePA.Name = "txtSearchLastNamePA";
+            this.txtSearchLastNamePA.Size = new System.Drawing.Size(98, 22);
+            this.txtSearchLastNamePA.TabIndex = 80;
             // 
             // dataGridViewPArchive
             // 
@@ -507,7 +601,7 @@
             dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewPArchive.DefaultCellStyle = dataGridViewCellStyle12;
             this.dataGridViewPArchive.GridColor = System.Drawing.SystemColors.ButtonFace;
-            this.dataGridViewPArchive.Location = new System.Drawing.Point(70, 48);
+            this.dataGridViewPArchive.Location = new System.Drawing.Point(81, 106);
             this.dataGridViewPArchive.Name = "dataGridViewPArchive";
             this.dataGridViewPArchive.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
             dataGridViewCellStyle13.BackColor = System.Drawing.Color.White;
@@ -549,6 +643,7 @@
             this.AppointmentsTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAppointments)).EndInit();
             this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPArchive)).EndInit();
             this.ResumeLayout(false);
 
@@ -585,6 +680,14 @@
         private System.Windows.Forms.DateTimePicker dateTimePickerAppointment;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.DataGridView dataGridViewPArchive;
+        private System.Windows.Forms.Button btnSearchPatientArchive;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox txtSearchFirstNamePA;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox txtSearchLastNamePA;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox txtGenderPA;
+        private System.Windows.Forms.Button btnRefreshPatientArchive;
     }
 }
 

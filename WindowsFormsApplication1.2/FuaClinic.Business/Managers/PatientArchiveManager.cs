@@ -16,7 +16,7 @@ namespace FuaClinic.Business.Managers
     {
         internal override IRepository Repository => new PatientArchiveRepository();
 
-        public new DataTable GetAll()
+        public DataTable GetAll()
         {
             var patients = Repository.SelectAll<PatientArchive>().ToList();
             return CreateDataTable(patients);
@@ -24,7 +24,8 @@ namespace FuaClinic.Business.Managers
 
         public DataTable GetBySearch(DynamicParameters param)
         {
-            throw new NotImplementedException();
+            var patients = (Repository as IPatientArchiveRepository).SearchPatients(param);
+            return CreateDataTable(patients);
         }
 
         public DataTable CreateDataTable(List<PatientArchive> patients)

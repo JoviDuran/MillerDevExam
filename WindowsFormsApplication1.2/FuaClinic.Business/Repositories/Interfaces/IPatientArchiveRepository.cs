@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FuaClinic.Business.Repositories.Interfaces
 {
-    interface IPatientArchiveRepository : IRepository
+   internal interface IPatientArchiveRepository : IRepository
     {
         List<PatientArchive> SearchPatients(DynamicParameters param);
 

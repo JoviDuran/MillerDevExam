@@ -3,42 +3,37 @@ using FuaClinic.Business.Managers;
 using FuaClinic.Business.Managers.ManagerInterfaces;
 using FuaClinic.Business.Models;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using WindowsFormsApplication1.Utiliies;
+using System.IO;
+using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Linq;
 
 namespace WindowsFormsApplication1.Forms.Appointments
 {
     public partial class Add : Form
     {
         IAppointmentManager appointmentManager;
+        ITestResultManager testResultManager;
+        PatientManager patientManager = new PatientManager();
         Patient patient;
 
-        public Add(Patient patient, IAppointmentManager appointmentManager)
+        public Add(Patient patient, IAppointmentManager appointmentManager, ITestResultManager testResultManager)
         {
             InitializeComponent();
             this.patient = patient;
             this.appointmentManager = appointmentManager;
+            this.testResultManager = testResultManager;
         }
         private void Add_Load(object sender, EventArgs e)
         {
             txtFirstNameAppointment.Text = patient.FirstName.ToString();
             txtLastNameAppointment.Text = patient.LastName.ToString();
-            FillDataGridViewAppointments();
-
-        }
-
-        private void dateTimePickerAppointment_ValueChanged(object sender, EventArgs e)
-        {
-            FillAppointmentsTableByDate();
-        }
-
-        private void dateTimePickerAppointment_KeyUp(object sender, KeyEventArgs e)
-        {
-            FillAppointmentsTableByDate();
-        }
-        private void btnPatientsAppointments_Click(object sender, EventArgs e)
-        {
-            FillAppointmentsTableByPatientId();
+            FillListViewAppointments();
+            btnCancelAppointment.Enabled = false;
         }
 
         private void btnSaveAppointment_Click(object sender, EventArgs e)
@@ -46,21 +41,169 @@ namespace WindowsFormsApplication1.Forms.Appointments
             if (isValidDateAndTime())
             {
                 AddAppointment(CreateAppointment());
-                FillDataGridViewAppointments();
+                FillListViewAppointments();
             }
         }
 
-        private void btnClear_Click(object sender, EventArgs e)
+        private void btnUpdate_Click(object sender, EventArgs e)
         {
-            FillDataGridViewAppointments();
+            UpdateAppointment();
+            FillListViewAppointments();
+            btnUpdateAppointment.Enabled = false;
         }
 
+        private void btnCancelAppointment_Click(object sender, EventArgs e)
+        {
+            CancelAppointment();
+            btnCancelAppointment.Enabled = false;
+
+        }
+
+        public void FillListViewAppointments()
+        {
+            listView1.Items.Clear();
+            var appointments = appointmentManager.GetAll<Appointment>();
+            foreach (var appointment in appointments)
+            {
+                var patient = GetPatientById(appointment);
+                var row = new string[]
+                {
+                    patient.FirstName,
+                    patient.LastName,
+                    appointment.DesiredDateTime.ToString()
+                };
+                var listViewItem = new ListViewItem(row);
+                listViewItem.Tag = appointment;
+                listView1.Items.Add(listViewItem);
+            }
+        }
+
+        public void FillListViewAppointmentsByDesiredDate()
+        {
+            listView1.Items.Clear();
+            var appointments = appointmentManager.GetWithWhereCondition
+                <Appointment>($"cast(DesiredDateTime as date) =" +
+                $" '{dateTimePickerAppointment.Value.ToString("yyyy-MM-dd")}'");
+
+            foreach (var appointment in appointments)
+            {
+                var patient = GetPatientById(appointment);
+                var row = new string[]
+                {
+                    patient.FirstName,
+                    patient.LastName,
+                    appointment.DesiredDateTime.ToString(),
+                };
+                var listViewItem = new ListViewItem(row);
+                listViewItem.Tag = appointment;
+                listView1.Items.Add(listViewItem);
+            }
+        }
+
+        public void FillListViewAppointmentsByPatient()
+        {
+            listView1.Items.Clear();
+            var appointments = appointmentManager.GetWithWhereCondition
+                <Appointment>($"PatientId = '{patient.Id}'");
+            foreach (var appointment in appointments)
+            {
+                var patient = GetPatientById(appointment);
+                var row = new string[]
+                {
+                    patient.FirstName,
+                    patient.LastName,
+                    appointment.DesiredDateTime.ToString(),
+                    appointment.DoctorsRemarks
+                 };
+                var listViewItem = new ListViewItem(row);
+                listViewItem.Tag = appointment;
+                listView1.Items.Add(listViewItem);
+            }
+        }
+
+        private void ListView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count > 0)
+            {
+                var selectedAppointment = GetSelectedAppointmentFromList();
+                dateTimePickerAppointment.Value = selectedAppointment.DesiredDateTime;
+                txtDoctorsRemarks.Text = selectedAppointment.DoctorsRemarks;
+                btnUpdateAppointment.Enabled = true;
+                btnCancelAppointment.Enabled = true;
+                btnSaveAppointment.Enabled = false;
+
+                var patient = patientManager.GetWithWhereCondition
+                    <Patient>($"Id = {selectedAppointment.PatientId}").FirstOrDefault();
+                txtFirstNameAppointment.Text = patient.FirstName;
+                txtLastNameAppointment.Text = patient.LastName;
+            }
+        }
+
+
+        public void CancelAppointment()
+        {
+            if (listView1.SelectedItems.Count > 0)
+            {
+                var appointment = GetSelectedAppointmentFromList();
+                var messageBoxResult = MessageBox.Show("Are you sure you want to cancel appointment?",
+                   "Confirm Cancel.", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (messageBoxResult == DialogResult.Yes)
+                {
+                    if (appointmentManager.Delete(new int[] { appointment.Id }))
+                    {
+                        MessageBox.Show("Appointment cancelled.");
+                        FillListViewAppointments();
+                    }
+                }
+            }
+        }
+        public void UpdateAppointment()
+        {
+            if (listView1.SelectedItems.Count > 0)
+            {
+                var messageBoxResult = MessageBox.Show("Are you sure you want to update appointment?",
+                   "Confirm Update.", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (messageBoxResult == DialogResult.Yes)
+                {
+                    var appointment = GetSelectedAppointmentFromList();
+                    appointment.DesiredDateTime = dateTimePickerAppointment.Value;
+                    appointment.DoctorsRemarks = txtDoctorsRemarks.Text;
+
+                    if (appointmentManager.Update(appointment))
+                    {
+                        MessageBox.Show("Appointment updated successfully.");
+                    }
+                    //if (isValidDateAndTime())
+                    //{
+                    //    var newAppointment = CreateAppointment();
+                    //    appointmentManager.Add(newAppointment);
+                    //    MessageBox.Show("Appointment updated successfully.");
+                    //    FillListViewAppointments();
+                    //}
+                }
+            }
+        }
+
+        public Appointment GetSelectedAppointmentFromList()
+        {
+            return (Appointment)listView1.SelectedItems[0].Tag;
+
+        }
         public void AddAppointment(Appointment appointment)
         {
             if (appointmentManager.Add(appointment) > 0)
             {
                 MessageBox.Show("Appointment created successfully.");
             }
+
+        }
+
+        public Patient GetPatientById(Appointment appointment)
+        {
+            return patientManager.GetById<Patient>(appointment.PatientId);
+
         }
 
         public bool isValidDateAndTime()
@@ -71,7 +214,7 @@ namespace WindowsFormsApplication1.Forms.Appointments
 
             if (isIdentical(desiredDateAndTime.ToString()) ||
                 IsPastCurrentDateTime(desiredDateAndTime) ||
-                IsNotInClinicShedule(desiredTime) ||
+                IsOutSideClinicShedule(desiredTime) ||
                 IsConflicting(desiredDateAndTime))
             {
                 return false;
@@ -94,7 +237,7 @@ namespace WindowsFormsApplication1.Forms.Appointments
             return false;
         }
 
-        public bool IsNotInClinicShedule(TimeSpan time)
+        public bool IsOutSideClinicShedule(TimeSpan time)
         {
             // TODO: Use Constants
             const int STARTINGHOUROFAPPOINTMENTS = 8;
@@ -162,37 +305,90 @@ namespace WindowsFormsApplication1.Forms.Appointments
             return false;
         }
 
+
         public Appointment CreateAppointment()
         {
             var appointment = new Appointment();
             appointment.PatientId = patient.Id;
             appointment.DesiredDateTime = dateTimePickerAppointment.Value;
+            appointment.DoctorsRemarks = txtDoctorsRemarks.Text;
             return appointment;
         }
 
-        public void FillDataGridViewAppointments()
+
+        private void RadioAtDesiredDate_CheckedChanged(object sender, EventArgs e)
         {
-            dataGridViewAppointments.DataSource = appointmentManager.GetAll();
-            ShowImportantColumnsofDataGridViewAppointments();
+            FillListViewAppointmentsByDesiredDate();
         }
 
-        public void FillAppointmentsTableByDate()
+        private void RadioAtPatientsAppointment_CheckedChanged(object sender, EventArgs e)
         {
-            dataGridViewAppointments.DataSource = appointmentManager.GetByDate
-                (dateTimePickerAppointment.Value.ToString("yyyy-MM-dd"));
-            ShowImportantColumnsofDataGridViewAppointments();
+            FillListViewAppointmentsByPatient();
+            txtFirstNameAppointment.Text = patient.FirstName;
+            txtLastNameAppointment.Text = patient.LastName;
         }
 
-        public void FillAppointmentsTableByPatientId()
+        private void RadioAll_CheckedChanged(object sender, EventArgs e)
         {
-            dataGridViewAppointments.DataSource = appointmentManager.GetByPatientId(patient.Id);
-            ShowImportantColumnsofDataGridViewAppointments();
+            FillListViewAppointments();
+        }
+
+        private void BtnTestResults_Click(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count > 0)
+            {
+                var appointment = GetSelectedAppointmentFromList();
+                new TestResults.TestResults(appointment).Show();
+            }
+        }
+
+        private void Add_Click(object sender, EventArgs e)
+        {
+            btnUpdateAppointment.Enabled = false;
+            btnCancelAppointment.Enabled = false;
+            btnSaveAppointment.Enabled = true;
+
 
         }
-        public void ShowImportantColumnsofDataGridViewAppointments()
+
+        private void txtDoctorsRemarks_TextChanged(object sender, EventArgs e)
         {
-            dataGridViewAppointments.Columns[0].Visible = false;
-            dataGridViewAppointments.Columns[1].Visible = false;
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dateTimePickerAppointment_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblDateAppointment_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtLastNameAppointment_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblLastNameAppointment_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtFirstNameAppointment_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblFirstNameAppointment_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

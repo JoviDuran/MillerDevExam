@@ -352,7 +352,7 @@
             this.btnAppointments.Name = "btnAppointments";
             this.btnAppointments.Size = new System.Drawing.Size(186, 37);
             this.btnAppointments.TabIndex = 143;
-            this.btnAppointments.Text = "Add Appointment";
+            this.btnAppointments.Text = "Appointments";
             this.btnAppointments.UseVisualStyleBackColor = false;
             this.btnAppointments.Click += new System.EventHandler(this.btnAppointments_Click);
             // 

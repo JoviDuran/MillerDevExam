@@ -64,8 +64,10 @@ namespace FuaClinic.Business.Managers
                 dataRow[3] = patient.LastName;
                 dataRow[4] = age;
                 dataRow[5] = appointment.DesiredDateTime;
+
                 dataTable.Rows.Add(dataRow);
             }
+
 
             return dataTable;
         }
