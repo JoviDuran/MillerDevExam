@@ -10,6 +10,7 @@ namespace FuaClinic.Business.Models
     {
         public int Id { get; set; }
         public int PatientId { get; set; }
-        public DateTime DesiredDateTime{ get; set; }
+        public DateTime DesiredDateTime { get; set; }
+        public string DoctorsRemarks { get; set; }
     }
 }

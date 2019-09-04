@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dapper;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -10,5 +11,7 @@ namespace FuaClinic.Business.Managers.ManagerInterfaces
     public interface IPatientArchiveManager : IManager
     {
         DataTable GetAll();
+        DataTable GetBySearch(DynamicParameters param);
+
     }
 }

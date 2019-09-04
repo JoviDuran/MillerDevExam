@@ -13,15 +13,22 @@ namespace WindowsFormsApplication1
         private readonly IPatientManager patientManager;
         private readonly IAddressManager addressManager;
         private readonly IEmergencyContactManager emergencyContactManager;
+        private readonly ITestResultManager testResultManager;
+
         Patient patient;
 
-        public Read(Patient patient, IPatientManager patientManager, IAddressManager addressManager, IEmergencyContactManager emergencyContactManager)
+        public Read(Patient patient, IPatientManager patientManager, 
+            IAddressManager addressManager, 
+            IEmergencyContactManager emergencyContactManager,
+            ITestResultManager testResultManager
+            )
         {
             InitializeComponent();
             this.patient = patient;
             this.patientManager = patientManager;
             this.addressManager = addressManager;
             this.emergencyContactManager = emergencyContactManager;
+            this.testResultManager = testResultManager;
         }
 
         private void PatientInformation_Load(object sender, EventArgs e)
@@ -101,7 +108,17 @@ namespace WindowsFormsApplication1
         private void btnAppointments_Click(object sender, EventArgs e)
         {
             var appointmentManager = new AppointmentManager();
-            new Forms.Appointments.Add(patient, appointmentManager).Show();
+            new Forms.Appointments.Read(patient, appointmentManager, testResultManager).Show();
+        }
+
+        private void txtPostalCode_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

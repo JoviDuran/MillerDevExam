@@ -21,4 +21,5 @@ namespace FuaClinic.Business.Repositories
             return result;
         }
     }
+       
 }

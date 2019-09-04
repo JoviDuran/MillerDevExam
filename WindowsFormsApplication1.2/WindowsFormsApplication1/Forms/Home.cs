@@ -18,6 +18,7 @@ namespace FuaClinic
         AppointmentManager appointmentManager = new AppointmentManager();
         ConsultationManager consultationManager = new ConsultationManager();
         PatientArchiveManager patientArchiveManager = new PatientArchiveManager();
+        TestResultManager testResultManager = new TestResultManager();
 
 
         public Home()
@@ -55,21 +56,23 @@ namespace FuaClinic
         private void ViewPatientInfo_Click(object sender, EventArgs e)
         {
             var patient = GetPatientDetails();
-            new Read(patient, patientManager, addressManager, emergencyContactManager).Show();
+            new Read(patient, patientManager, addressManager, emergencyContactManager, testResultManager).Show();
         }
 
         private void ViewPatientInfoThroughConsultation_Click(object sender, EventArgs e)
         {
             var patientId = Convert.ToInt32(dataGridViewConsultations.CurrentRow.Cells[1].Value.ToString());
             var patient = GetPatientById(patientId);
-            new Read(patient, patientManager, addressManager, emergencyContactManager).Show();
+            new Read(patient, patientManager, addressManager, emergencyContactManager, testResultManager).Show();
         }
 
         private void RefreshDataGridViewPatients_Click(object sender, EventArgs e)
         {
             FillDataGridViewPatients();
             ShowImportanColumnsOfDataGridViewPatients();
-            textSearchFirstName.Text = txtSearchGender.Text = txtSearchLastName.Text = string.Empty;
+            textSearchFirstName.Text = txtSearchLastName.Text = string.Empty;
+            radioFemale.Checked = false;
+            radioMale.Checked = false;
         }
 
         // Consultations UI
@@ -116,7 +119,13 @@ namespace FuaClinic
         private void ViewPatientInforThroughAppointments_Click(object sender, EventArgs e)
         {
             var patient = GetPatientById(Convert.ToInt32(dataGridViewAppointments.CurrentRow.Cells[1].Value.ToString()));
-            new Read(patient, patientManager, addressManager, emergencyContactManager).Show();
+            new Read(patient, patientManager, addressManager, emergencyContactManager, testResultManager).Show();
+        }
+
+        // Patient Archive UI
+        private void btnSearchPatientArchive_Click(object sender, EventArgs e)
+        {
+            FillDateGridViewPatientArchiveThroughSearch();
         }
 
         public void ShowImportanColumnsOfDataGridViewPatients()
@@ -127,7 +136,13 @@ namespace FuaClinic
             dataGridViewPatients.Columns[6].Visible = false;
             dataGridViewPatients.Columns[7].Visible = false;
         }
+        private void btnRefreshPatientArchive_Click(object sender, EventArgs e)
+        {
+            FillDataGridViewPatientArchive();
+        }
 
+
+        // Other methods
         public void ShowImportantColumnsOfDataGridViewConsultations()
         {
             dataGridViewConsultations.Columns[0].Visible = false;
@@ -161,7 +176,7 @@ namespace FuaClinic
                 foreach (DataGridViewRow row in dataGridViewPatients.SelectedRows)
                 {
                     ids.Add(Convert.ToInt32(row.Cells[0].Value));
-                }
+                }   
 
                 var messageBoxResult = MessageBox.Show("Are you sure you want to delete?",
                     "Confirm Delete.", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -219,17 +234,23 @@ namespace FuaClinic
             }
         }
 
-        // Patient Archive
 
         public Patient GetPatientById(int id)
         {
             return patientManager.GetById<Patient>(id);
         }
 
-        public void FillDataGridViewPatients()
+
+
+
+        public void FillDateGridViewPatientArchiveThroughSearch()
         {
-            dataGridViewPatients.DataSource = patientManager.GetAll();
+            var parameter = new DynamicParameters();
+            parameter.Add("@SearchFirstName", txtSearchFirstNamePA.Text.Trim());
+            parameter.Add("@SearchLastName", txtSearchLastNamePA.Text.Trim());
+            dataGridViewPArchive.DataSource = patientArchiveManager.GetBySearch(parameter);
         }
+
         public Patient GetPatientDetails()
         {
             var patient = new Patient();
@@ -245,10 +266,22 @@ namespace FuaClinic
         }
         public void FillDataGridViewPatientsThroughSearch()
         {
+            var gender = string.Empty;
             var parameter = new DynamicParameters();
             parameter.Add("@SearchFirstName", textSearchFirstName.Text.Trim());
             parameter.Add("@SearchLastName", txtSearchLastName.Text.Trim());
-            parameter.Add("@SearchGender", txtSearchGender.Text.Trim());
+            if (radioFemale.Checked)
+            {
+                gender = "F";
+            }
+            else if (radioMale.Checked)
+            {
+                gender = "M";
+            }
+            {
+                gender = string.Empty;
+            }
+            parameter.Add("@SearchGender", gender);
             dataGridViewPatients.DataSource = patientManager.GetBySearch(parameter);
             ShowImportanColumnsOfDataGridViewPatients();
         }
@@ -274,13 +307,15 @@ namespace FuaClinic
         {
             dataGridViewPArchive.DataSource = patientArchiveManager.GetAll();
         }
+        public void FillDataGridViewPatients()
+        {
+            dataGridViewPatients.DataSource = patientManager.GetAll();
+        }
 
         public void FillAppointmentsTableByDate()
         {
             dataGridViewAppointments.DataSource = appointmentManager.GetByDate(dateTimePickerAppointment.Value.ToString("yyyy-MM-dd"));
             ShowImportantColumnsofDataGridViewAppointments();
         }
-
-       
     }
 }

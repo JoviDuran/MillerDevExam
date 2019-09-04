@@ -19,6 +19,8 @@ namespace FuaClinic.Business.Repositories
                 if (_connection == null)
                 {
                     _connection = new SqlConnection(@"Data Source = DESKTOP-PN05J6C\SQLEXPRESS;Initial Catalog= FuaClinic;Integrated Security =True;");
+                    //_connection = new SqlConnection(@"Data Source = LAPTOP-II46HSN7\SQLEXPRESS;Initial Catalog= FuaClinic;Integrated Security =True;");
+
                 }
 
                 return _connection;
