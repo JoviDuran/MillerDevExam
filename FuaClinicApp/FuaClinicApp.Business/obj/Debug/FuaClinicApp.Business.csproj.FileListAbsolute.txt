@@ -27,3 +27,10 @@ E:\FuaClinicApp\FuaClinicApp.Business\bin\Debug\Dapper.xml
 E:\FuaClinicApp\FuaClinicApp.Business\obj\Debug\FuaClinicApp.Business.dll
 E:\FuaClinicApp\FuaClinicApp.Business\obj\Debug\FuaClinicApp.Business.pdb
 E:\FuaClinicApp\FuaClinicApp.Business\obj\Debug\FuaClinicApp.Business.csprojResolveAssemblyReference.cache
+E:\MillerDevExam\FuaClinicApp\FuaClinicApp.Business\bin\Debug\FuaClinicApp.Business.dll
+E:\MillerDevExam\FuaClinicApp\FuaClinicApp.Business\bin\Debug\FuaClinicApp.Business.pdb
+E:\MillerDevExam\FuaClinicApp\FuaClinicApp.Business\bin\Debug\Dapper.dll
+E:\MillerDevExam\FuaClinicApp\FuaClinicApp.Business\bin\Debug\Dapper.xml
+E:\MillerDevExam\FuaClinicApp\FuaClinicApp.Business\obj\Debug\FuaClinicApp.Business.csprojResolveAssemblyReference.cache
+E:\MillerDevExam\FuaClinicApp\FuaClinicApp.Business\obj\Debug\FuaClinicApp.Business.dll
+E:\MillerDevExam\FuaClinicApp\FuaClinicApp.Business\obj\Debug\FuaClinicApp.Business.pdb
