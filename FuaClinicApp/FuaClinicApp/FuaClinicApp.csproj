@@ -181,7 +181,6 @@
     <Compile Include="Models\PatientArchiveDTO.cs" />
     <Compile Include="Models\PatientDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
