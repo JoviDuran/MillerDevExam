@@ -70,7 +70,9 @@ namespace FuaClinic
         {
             FillDataGridViewPatients();
             ShowImportanColumnsOfDataGridViewPatients();
-            textSearchFirstName.Text = txtSearchGender.Text = txtSearchLastName.Text = string.Empty;
+            textSearchFirstName.Text = txtSearchLastName.Text = string.Empty;
+            radioFemale.Checked = false;
+            radioMale.Checked = false;
         }
 
         // Consultations UI
@@ -238,16 +240,14 @@ namespace FuaClinic
             return patientManager.GetById<Patient>(id);
         }
 
-       
-       
+
+
 
         public void FillDateGridViewPatientArchiveThroughSearch()
         {
             var parameter = new DynamicParameters();
             parameter.Add("@SearchFirstName", txtSearchFirstNamePA.Text.Trim());
             parameter.Add("@SearchLastName", txtSearchLastNamePA.Text.Trim());
-            parameter.Add("@SearchGender", txtGenderPA.Text.Trim());
-
             dataGridViewPArchive.DataSource = patientArchiveManager.GetBySearch(parameter);
         }
 
@@ -266,10 +266,22 @@ namespace FuaClinic
         }
         public void FillDataGridViewPatientsThroughSearch()
         {
+            var gender = string.Empty;
             var parameter = new DynamicParameters();
             parameter.Add("@SearchFirstName", textSearchFirstName.Text.Trim());
             parameter.Add("@SearchLastName", txtSearchLastName.Text.Trim());
-            parameter.Add("@SearchGender", txtSearchGender.Text.Trim());
+            if (radioFemale.Checked)
+            {
+                gender = "F";
+            }
+            else if (radioMale.Checked)
+            {
+                gender = "M";
+            }
+            {
+                gender = string.Empty;
+            }
+            parameter.Add("@SearchGender", gender);
             dataGridViewPatients.DataSource = patientManager.GetBySearch(parameter);
             ShowImportanColumnsOfDataGridViewPatients();
         }
@@ -304,16 +316,6 @@ namespace FuaClinic
         {
             dataGridViewAppointments.DataSource = appointmentManager.GetByDate(dateTimePickerAppointment.Value.ToString("yyyy-MM-dd"));
             ShowImportantColumnsofDataGridViewAppointments();
-        }
-
-        private void dataGridViewAppointments_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

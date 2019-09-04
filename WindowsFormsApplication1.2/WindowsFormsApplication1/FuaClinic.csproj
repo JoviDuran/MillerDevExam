@@ -57,6 +57,12 @@
     <Compile Include="Forms\Appointments\Add.Designer.cs">
       <DependentUpon>Add.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Appointments\Read.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Appointments\Read.Designer.cs">
+      <DependentUpon>Read.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Consultations\Add.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,11 +87,11 @@
     <Compile Include="Forms\Home.Designer.cs">
       <DependentUpon>Home.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\TestResults\TestResults.cs">
+    <Compile Include="Forms\TestResults\Read.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\TestResults\TestResults.Designer.cs">
-      <DependentUpon>TestResults.cs</DependentUpon>
+    <Compile Include="Forms\TestResults\Read.Designer.cs">
+      <DependentUpon>Read.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -99,6 +105,9 @@
     <EmbeddedResource Include="Forms\Appointments\Add.resx">
       <DependentUpon>Add.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Appointments\Read.resx">
+      <DependentUpon>Read.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Consultations\Add.resx">
       <DependentUpon>Add.cs</DependentUpon>
     </EmbeddedResource>
@@ -111,8 +120,8 @@
     <EmbeddedResource Include="Forms\Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\TestResults\TestResults.resx">
-      <DependentUpon>TestResults.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\TestResults\Read.resx">
+      <DependentUpon>Read.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

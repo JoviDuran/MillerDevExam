@@ -60,3 +60,11 @@ G:\WindowsFormsApplication1.2\FuaClinic.Business\obj\Debug\FuaClinic.Business.cs
 G:\WindowsFormsApplication1.2\FuaClinic.Business\obj\Debug\FuaClinic.Business.dll
 G:\WindowsFormsApplication1.2\FuaClinic.Business\obj\Debug\FuaClinic.Business.pdb
 G:\WindowsFormsApplication1.2\FuaClinic.Business\obj\Debug\FuaClinic.Business.csprojAssemblyReference.cache
+E:\MillerDevExam\WindowsFormsApplication1.2\FuaClinic.Business\bin\Debug\FuaClinic.Business.dll
+E:\MillerDevExam\WindowsFormsApplication1.2\FuaClinic.Business\bin\Debug\FuaClinic.Business.pdb
+E:\MillerDevExam\WindowsFormsApplication1.2\FuaClinic.Business\bin\Debug\Dapper.dll
+E:\MillerDevExam\WindowsFormsApplication1.2\FuaClinic.Business\bin\Debug\Dapper.pdb
+E:\MillerDevExam\WindowsFormsApplication1.2\FuaClinic.Business\bin\Debug\Dapper.xml
+E:\MillerDevExam\WindowsFormsApplication1.2\FuaClinic.Business\obj\Debug\FuaClinic.Business.csprojResolveAssemblyReference.cache
+E:\MillerDevExam\WindowsFormsApplication1.2\FuaClinic.Business\obj\Debug\FuaClinic.Business.dll
+E:\MillerDevExam\WindowsFormsApplication1.2\FuaClinic.Business\obj\Debug\FuaClinic.Business.pdb
