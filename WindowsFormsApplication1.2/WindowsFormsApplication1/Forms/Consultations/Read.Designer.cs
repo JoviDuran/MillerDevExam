@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApplication1.ConsultationForms
+﻿namespace WindowsFormsApplication1.Forms.Consultations
 {
     partial class Read
     {
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridViewConsultations = new System.Windows.Forms.DataGridView();
             this.lblName = new System.Windows.Forms.Label();
             this.btnAddConsultation = new System.Windows.Forms.Button();
@@ -49,15 +49,15 @@
             this.dataGridViewConsultations.BackgroundColor = System.Drawing.Color.White;
             this.dataGridViewConsultations.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dataGridViewConsultations.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewConsultations.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridViewConsultations.Location = new System.Drawing.Point(224, 172);
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewConsultations.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dataGridViewConsultations.Location = new System.Drawing.Point(181, 216);
             this.dataGridViewConsultations.Name = "dataGridViewConsultations";
             this.dataGridViewConsultations.RowHeadersVisible = false;
             this.dataGridViewConsultations.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -77,10 +77,10 @@
             // btnAddConsultation
             // 
             this.btnAddConsultation.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnAddConsultation.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddConsultation.Location = new System.Drawing.Point(84, 176);
+            this.btnAddConsultation.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddConsultation.Location = new System.Drawing.Point(154, 449);
             this.btnAddConsultation.Name = "btnAddConsultation";
-            this.btnAddConsultation.Size = new System.Drawing.Size(105, 37);
+            this.btnAddConsultation.Size = new System.Drawing.Size(95, 28);
             this.btnAddConsultation.TabIndex = 143;
             this.btnAddConsultation.Text = "Add";
             this.btnAddConsultation.UseVisualStyleBackColor = false;
@@ -91,7 +91,7 @@
             this.label6.AccessibleRole = System.Windows.Forms.AccessibleRole.Clock;
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(221, 136);
+            this.label6.Location = new System.Drawing.Point(104, 140);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(40, 16);
             this.label6.TabIndex = 144;
@@ -110,8 +110,8 @@
             // 
             // btnViewAll
             // 
-            this.btnViewAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnViewAll.Location = new System.Drawing.Point(84, 133);
+            this.btnViewAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnViewAll.Location = new System.Drawing.Point(181, 179);
             this.btnViewAll.Name = "btnViewAll";
             this.btnViewAll.Size = new System.Drawing.Size(107, 31);
             this.btnViewAll.TabIndex = 147;
@@ -122,10 +122,10 @@
             // btnDeleteConsultation
             // 
             this.btnDeleteConsultation.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnDeleteConsultation.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeleteConsultation.Location = new System.Drawing.Point(86, 219);
+            this.btnDeleteConsultation.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeleteConsultation.Location = new System.Drawing.Point(255, 449);
             this.btnDeleteConsultation.Name = "btnDeleteConsultation";
-            this.btnDeleteConsultation.Size = new System.Drawing.Size(105, 37);
+            this.btnDeleteConsultation.Size = new System.Drawing.Size(95, 28);
             this.btnDeleteConsultation.TabIndex = 148;
             this.btnDeleteConsultation.Text = "Delete";
             this.btnDeleteConsultation.UseVisualStyleBackColor = false;

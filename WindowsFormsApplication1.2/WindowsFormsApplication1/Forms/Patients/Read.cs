@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
 using FuaClinic.Business;
-using WindowsFormsApplication1.ConsultationForms;
 using FuaClinic.Business.Managers;
 using System.Linq;
 using FuaClinic.Business.Managers.ManagerInterfaces;
@@ -102,7 +101,7 @@ namespace WindowsFormsApplication1
         private void btnConsultations_Click(object sender, EventArgs e)
         {
             var consultationManager = new ConsultationManager();
-            new ConsultationForms.Read(patient, consultationManager).Show();
+            new Forms.Consultations.Read(patient, consultationManager).Show();
         }
 
         private void btnAppointments_Click(object sender, EventArgs e)

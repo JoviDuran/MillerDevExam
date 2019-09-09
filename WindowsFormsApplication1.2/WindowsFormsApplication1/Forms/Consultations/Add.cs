@@ -4,7 +4,7 @@ using FuaClinic.Business.Managers.ManagerInterfaces;
 using System;
 using System.Windows.Forms;
 
-namespace WindowsFormsApplication1.ConsultationForms
+namespace WindowsFormsApplication1.Forms.Consultations
 {
     public partial class Add : Form
     {

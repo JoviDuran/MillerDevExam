@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApplication1.ConsultationForms
+﻿namespace WindowsFormsApplication1.Forms.Consultations
 {
     partial class Add
     {
