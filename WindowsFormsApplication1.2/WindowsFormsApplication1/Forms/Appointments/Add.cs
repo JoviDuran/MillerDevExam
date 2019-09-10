@@ -1,5 +1,6 @@
 ﻿using FuaClinic.Business;
 using FuaClinic.Business.Managers;
+using FuaClinic.Business.Managers.ManagerInterfaces;
 using FuaClinic.Business.Models;
 using System;
 using System.Collections.Generic;
@@ -12,20 +13,54 @@ namespace WindowsFormsApplication1.Forms.Appointments
 {
     public partial class Add : Form
     {
-        AppointmentManager appointmentManager = new AppointmentManager();
-        PatientManager patientManager = new PatientManager();
-        TestResultManager testResultManager = new TestResultManager();
+        IAppointmentManager appointmentManager;
+        ITestResultManager testResultManager;
         Patient patient;
         List<TestResult> testResults = new List<TestResult>();
-        public Add(Patient patient)
+
+        public Add(
+            Patient patient,
+            IAppointmentManager appointmentManager,
+            ITestResultManager testResultManager)
         {
             InitializeComponent();
             this.patient = patient;
+            this.appointmentManager = appointmentManager;
+            this.testResultManager = testResultManager;
         }
 
         private void Add_Load(object sender, EventArgs e)
         {
             FillListViewAppointments();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            if (isValidDateAndTime())
+            {
+                var appointmentId = SaveAppointment(CreateAppointment());
+                SaveTestResults(appointmentId);
+                MessageBox.Show("Appointment created successfully");
+                this.Close();
+            }
+        }
+
+        private void btnUploadTestResult_Click(object sender, EventArgs e)
+        {
+            var openFileDialog = new OpenFileDialog();
+            openFileDialog.InitialDirectory = "C:\\";
+            openFileDialog.Filter = "Image Files (*.jpg)|*.jpg|All Files(*.*)|*.*";
+            openFileDialog.FilterIndex = 1;
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                var fileName = openFileDialog.FileName;
+                var image = Image.FromFile(fileName);
+                var name = Path.GetFileName(openFileDialog.FileName);
+
+                testResults.Add(CreateTestResult(image, name));
+                FillListViewTestResults();
+            }
         }
 
         public void FillListViewAppointments()
@@ -65,7 +100,6 @@ namespace WindowsFormsApplication1.Forms.Appointments
 
         public bool isValidDateAndTime()
         {
-            //TODO: Improve naming. Use else if statements. Refactor/ improve.
             var desiredDateAndTime = dateTimePickerAppointment.Value;
             var desiredTime = dateTimePickerAppointment.Value.TimeOfDay;
 
@@ -81,7 +115,6 @@ namespace WindowsFormsApplication1.Forms.Appointments
 
         public bool IsOutSideClinicShedule(TimeSpan time)
         {
-            // TODO: Use Constants
             const int STARTINGHOUROFAPPOINTMENTS = 8;
             const int STARTINGMINUNTESOFAPPOINTMENTS = 0;
             const int STARTINGSECONDSOFAPPOINTMENTS = 0;
@@ -95,10 +128,10 @@ namespace WindowsFormsApplication1.Forms.Appointments
             const int ENDINGMINUTESOFDRSROUNDS = 0;
             const int ENDINGSECONDSOFDRSROUNDS = 0;
 
-            TimeSpan startOfAppointments = new TimeSpan(STARTINGHOUROFAPPOINTMENTS, STARTINGMINUNTESOFAPPOINTMENTS, STARTINGSECONDSOFAPPOINTMENTS);
-            TimeSpan closingOfAppointments = new TimeSpan(ENDINGHOUROFAPPOINTMENTS, ENDINGMINUTESOFAPPOINTMENTS, ENDINGSECONDSOFAPPOINTMENTS);
-            TimeSpan startOfRounds = new TimeSpan(STARTINGHOURSOFDRSROUNDS, STARTINGMINUTESOFDRSROUNDS, STARTINGSECONDSOFDRSROUNDS);
-            TimeSpan endOfRounds = new TimeSpan(ENDINGHOURSOFDRSROUNDS, ENDINGMINUTESOFDRSROUNDS, ENDINGSECONDSOFDRSROUNDS);
+            var startOfAppointments = new TimeSpan(STARTINGHOUROFAPPOINTMENTS, STARTINGMINUNTESOFAPPOINTMENTS, STARTINGSECONDSOFAPPOINTMENTS);
+            var closingOfAppointments = new TimeSpan(ENDINGHOUROFAPPOINTMENTS, ENDINGMINUTESOFAPPOINTMENTS, ENDINGSECONDSOFAPPOINTMENTS);
+            var startOfRounds = new TimeSpan(STARTINGHOURSOFDRSROUNDS, STARTINGMINUTESOFDRSROUNDS, STARTINGSECONDSOFDRSROUNDS);
+            var endOfRounds = new TimeSpan(ENDINGHOURSOFDRSROUNDS, ENDINGMINUTESOFDRSROUNDS, ENDINGSECONDSOFDRSROUNDS);
 
             if (time < startOfAppointments || time > closingOfAppointments ||
                 time > startOfRounds && time < endOfRounds)
@@ -157,11 +190,10 @@ namespace WindowsFormsApplication1.Forms.Appointments
                 DoctorsRemarks = txtDoctorsRemarks.Text
             };
         }
-
-        //public Patient GetPatientById(Appointment appointment)
-        //{
-        //    return patientManager.GetById<Patient>(appointment.PatientId);
-        //}
+        public int SaveAppointment(Appointment appointment)
+        {
+            return appointmentManager.Add(appointment);
+        }
 
 
         private void dateTimePickerAppointment_KeyUp(object sender, KeyEventArgs e)
@@ -169,19 +201,13 @@ namespace WindowsFormsApplication1.Forms.Appointments
             FillListViewAppointmentsByDesiredDate();
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        public TestResult CreateTestResult(Image image, string fileName)
         {
-            if (isValidDateAndTime())
+            return new TestResult()
             {
-                var appointmentId = SaveAppointment(CreateAppointment());
-                SaveTestResults(appointmentId);
-                MessageBox.Show("Appointment created successfully");
-            }
-        }
-
-        public int SaveAppointment(Appointment appointment)
-        {
-            return appointmentManager.Add(appointment);
+                Name = fileName,
+                Image = ConvertImageToBinary(image)
+            };
         }
 
         public void SaveTestResults(int id)
@@ -193,59 +219,23 @@ namespace WindowsFormsApplication1.Forms.Appointments
                     testResult.AppointmentId = id;
                     testResultManager.Add(testResult);
                 }
+
+                testResults.Clear();
             }
-           
         }
 
-
-        //public void AddAppointment(Appointment appointment)
-        //{
-        //    if (appointmentManager.Add(appointment) > 0)
-        //    {
-        //        MessageBox.Show("Appointment created successfully.");
-        //    }
-        //}
-
-        public TestResult CreateTestResult(Image image, string fileName)
-        {
-            return new TestResult()
-            {
-                Name = fileName,
-                Image = ConvertImageToBinary(image)
-            };
-        }
 
         public byte[] ConvertImageToBinary(Image image)
         {
-            MemoryStream ms = new MemoryStream();
-            image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-            return ms.ToArray();
-        }
-       
-
-        private void btnAddTestResult_Click(object sender, EventArgs e)
-        {
-            var openFileDialog = new OpenFileDialog();
-            openFileDialog.InitialDirectory = "C:\\";
-            openFileDialog.Filter = "Image Files (*.jpg)|*.jpg|All Files(*.*)|*.*";
-            openFileDialog.FilterIndex = 1;
-
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                var fileName = openFileDialog.FileName;
-                var image = Image.FromFile(fileName);
-                var name = Path.GetFileName(openFileDialog.FileName);
-
-                var testResult = CreateTestResult(image, name);
-
-                testResults.Add(testResult);
-                FillListViewTestResults();
-            }
+            MemoryStream memoryStream = new MemoryStream();
+            image.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Jpeg);
+            return memoryStream.ToArray();
         }
 
         public void FillListViewTestResults()
         {
             listViewTestResults.Items.Clear();
+
             foreach (var testResult in testResults)
             {
                 var row = new string[] { testResult.Name };
@@ -253,7 +243,6 @@ namespace WindowsFormsApplication1.Forms.Appointments
                 listViewItem.Tag = testResult;
                 listViewTestResults.Items.Add(listViewItem);
             }
-
         }
     }
 }

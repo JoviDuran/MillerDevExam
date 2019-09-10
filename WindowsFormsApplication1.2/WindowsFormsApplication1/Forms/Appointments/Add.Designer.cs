@@ -158,9 +158,9 @@
             this.btnAddTestResult.Name = "btnAddTestResult";
             this.btnAddTestResult.Size = new System.Drawing.Size(123, 22);
             this.btnAddTestResult.TabIndex = 149;
-            this.btnAddTestResult.Text = "Add";
+            this.btnAddTestResult.Text = "Upload";
             this.btnAddTestResult.UseVisualStyleBackColor = false;
-            this.btnAddTestResult.Click += new System.EventHandler(this.btnAddTestResult_Click);
+            this.btnAddTestResult.Click += new System.EventHandler(this.btnUploadTestResult_Click);
             // 
             // Add
             // 

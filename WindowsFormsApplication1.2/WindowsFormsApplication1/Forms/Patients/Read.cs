@@ -107,17 +107,7 @@ namespace WindowsFormsApplication1
         private void btnAppointments_Click(object sender, EventArgs e)
         {
             var appointmentManager = new AppointmentManager();
-            new Forms.Appointments.Read(patient, appointmentManager, testResultManager).Show();
-        }
-
-        private void txtPostalCode_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label9_Click(object sender, EventArgs e)
-        {
-
+            new Forms.Appointments.Read(patient, patientManager, appointmentManager, testResultManager).Show();
         }
     }
 }

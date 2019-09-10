@@ -152,7 +152,6 @@
             this.txtPostalCode.Name = "txtPostalCode";
             this.txtPostalCode.Size = new System.Drawing.Size(133, 22);
             this.txtPostalCode.TabIndex = 121;
-            this.txtPostalCode.TextChanged += new System.EventHandler(this.txtPostalCode_TextChanged);
             // 
             // txtCity
             // 
@@ -177,7 +176,6 @@
             this.label9.Size = new System.Drawing.Size(82, 16);
             this.label9.TabIndex = 118;
             this.label9.Text = "Postal Code";
-            this.label9.Click += new System.EventHandler(this.label9_Click);
             // 
             // txtOccupation
             // 

@@ -119,7 +119,7 @@ namespace FuaClinic
         private void ViewAppointments(object sender, EventArgs e)
         {
             var patient = GetPatientById(Convert.ToInt32(dataGridViewAppointments.CurrentRow.Cells[1].Value.ToString()));
-            new WindowsFormsApplication1.Forms.Appointments.Read(patient, appointmentManager, testResultManager).Show();
+            new WindowsFormsApplication1.Forms.Appointments.Read(patient, patientManager, appointmentManager, testResultManager).Show();
         }
 
         // Patient Archive UI

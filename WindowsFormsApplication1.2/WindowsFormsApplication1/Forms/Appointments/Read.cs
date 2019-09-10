@@ -18,16 +18,18 @@ namespace WindowsFormsApplication1.Forms.Appointments
     {
         IAppointmentManager appointmentManager;
         ITestResultManager testResultManager;
-        PatientManager patientManager = new PatientManager();
-        List<TestResult> testResults = new List<TestResult>();
+        IPatientManager patientManager;
+        List<TestResult> newtestResults = new List<TestResult>();
+        List<TestResult> removedTestResults = new List<TestResult>();
         Patient patient;
 
-        public Read(Patient patient, IAppointmentManager appointmentManager, ITestResultManager testResultManager)
+        public Read(Patient patient, IPatientManager patientManager, IAppointmentManager appointmentManager, ITestResultManager testResultManager)
         {
             InitializeComponent();
             this.patient = patient;
             this.appointmentManager = appointmentManager;
             this.testResultManager = testResultManager;
+            this.patientManager = patientManager;
         }
 
         private void Add_Load(object sender, EventArgs e)
@@ -75,42 +77,32 @@ namespace WindowsFormsApplication1.Forms.Appointments
                 listViewItem.Tag = testResult;
                 listViewTestResults.Items.Add(listViewItem);
 
-                testResults.Add(testResult);
+                newtestResults.Add(testResult);
             }
         }
 
         private void BtnRemoveTestResult_Click(object sender, EventArgs e)
         {
-            RemoveTestResults();
-            FillListViewTestResultsByAppointment(GetSelectedAppointmentFromList());
+            RemoveTestResultFromListView();
         }
 
-        public void RemoveTestResults()
+        public void RemoveTestResultFromListView()
         {
             if ((listViewTestResults.SelectedItems.Count > 0))
             {
                 var testResult = (TestResult)listViewTestResults.SelectedItems[0].Tag;
-                testResults.Remove(testResult);
-                testResultManager.Delete(new int[] { testResult.Id });
+                removedTestResults.Add(testResult); //  add selected item to removedTestResults
+                listViewTestResults.SelectedItems[0].Remove();// remove selected item in list view
             }
         }
 
-        public void FillListViewAppointments()
+        public void DeleteTestResults()
         {
-            listViewDateTime.Items.Clear();
-            var appointments = appointmentManager.GetAll<Appointment>();
-            foreach (var appointment in appointments)
+            if (removedTestResults.Count > 0)
             {
-                var patient = GetPatientById(appointment);
-                var row = new string[]
-                {
-                    patient.FirstName,
-                    patient.LastName,
-                    appointment.DesiredDateTime.ToString()
-                };
-                var listViewItem = new ListViewItem(row);
-                listViewItem.Tag = appointment;
-                listViewDateTime.Items.Add(listViewItem);
+                var ids = removedTestResults.Select(x => x.Id).ToArray();
+                testResultManager.Delete(ids);
+                removedTestResults.Clear();
             }
         }
 
@@ -123,7 +115,6 @@ namespace WindowsFormsApplication1.Forms.Appointments
 
             foreach (var appointment in appointments)
             {
-                var patient = GetPatientById(appointment);
                 var row = new string[]
                 {
                     appointment.DesiredDateTime.ToString()
@@ -141,7 +132,6 @@ namespace WindowsFormsApplication1.Forms.Appointments
                 <Appointment>($"PatientId = '{patient.Id}'");
             foreach (var appointment in appointments)
             {
-                var patientById = GetPatientById(appointment);
                 var row = new string[]
                 {
                     appointment.DesiredDateTime.ToString(),
@@ -197,7 +187,7 @@ namespace WindowsFormsApplication1.Forms.Appointments
                     if (appointmentManager.Delete(new int[] { appointment.Id }))
                     {
                         MessageBox.Show("Appointment cancelled.");
-                        FillListViewAppointments();
+                        FillListViewAppointmentsByPatient();
                     }
                 }
             }
@@ -218,6 +208,7 @@ namespace WindowsFormsApplication1.Forms.Appointments
                     if (appointmentManager.Update(appointment))
                     {
                         AddTestResults(appointment.Id);
+                        DeleteTestResults();
                         MessageBox.Show("Appointment updated successfully.");
                     }
                 }
@@ -226,15 +217,15 @@ namespace WindowsFormsApplication1.Forms.Appointments
 
         public void AddTestResults(int id)
         {
-            if (id > 0)
+            if (id > 0 && newtestResults.Count > 0)
             {
-                foreach (var testResult in testResults)
+                foreach (var testResult in newtestResults)
                 {
                     testResult.AppointmentId = id;
                     testResultManager.Add(testResult);
                 }
 
-                testResults.Clear();
+                newtestResults.Clear();
             }
         }
 
@@ -338,7 +329,10 @@ namespace WindowsFormsApplication1.Forms.Appointments
             FillListViewAppointmentsByPatient();
             txtDoctorsRemarks.Clear();
             listViewTestResults.Clear();
-            testResults.Clear();
+            newtestResults.Clear();
+            removedTestResults.Clear();
+            btnUpdateAppointment.Enabled = false;
+            btnCancelAppointment.Enabled = false;
         }
 
         private void listViewTestResults_SelectedIndexChanged(object sender, EventArgs e)
@@ -348,7 +342,7 @@ namespace WindowsFormsApplication1.Forms.Appointments
                 try
                 {
                     var testResult = (TestResult)listViewTestResults.SelectedItems[0].Tag;
-                    new Forms.TestResults.Read(testResult).Show();
+                    new Forms.TestResults.Read(testResult, testResultManager).Show();
                 }
                 catch (Exception ex)
                 {
@@ -380,7 +374,7 @@ namespace WindowsFormsApplication1.Forms.Appointments
 
         private void btnNew_Click(object sender, EventArgs e)
         {
-            new Appointments.Add(patient).Show();
+            new Appointments.Add(patient, appointmentManager, testResultManager).Show();
         }
     }
 }

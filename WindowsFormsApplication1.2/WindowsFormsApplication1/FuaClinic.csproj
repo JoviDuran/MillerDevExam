@@ -99,12 +99,6 @@
     <Compile Include="Forms\Home.Designer.cs">
       <DependentUpon>Home.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\TestResults\Add.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\TestResults\Add.Designer.cs">
-      <DependentUpon>Add.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\TestResults\Read.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -137,9 +131,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\TestResults\Add.resx">
-      <DependentUpon>Add.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\TestResults\Read.resx">
       <DependentUpon>Read.cs</DependentUpon>
