@@ -45,10 +45,15 @@ namespace WindowsFormsApplication1.Forms.Appointments
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             var appointment = GetSelectedAppointmentFromList();
-            UpdateAppointment(appointment);
-            AddTestResults(appointment.Id);
-            FillListViewAppointmentsByPatient();
-            btnUpdateAppointment.Enabled = false;
+
+            if (isValidDateAndTime(appointment))
+            {
+                UpdateAppointment(appointment);
+                InsertTestResultOfAppointment(appointment.Id);
+                FillListViewAppointmentsByPatient();
+                btnUpdateAppointment.Enabled = false;
+            }
+            
         }
 
         private void btnCancelAppointment_Click(object sender, EventArgs e)
@@ -57,7 +62,7 @@ namespace WindowsFormsApplication1.Forms.Appointments
             btnCancelAppointment.Enabled = false;
         }
 
-        private void BtnUploadTestResult_Click(object sender, EventArgs e)
+        private void btnUploadTestResult_Click(object sender, EventArgs e)
         {
             var openFileDialog = new OpenFileDialog();
             openFileDialog.InitialDirectory = "C:\\";
@@ -81,9 +86,24 @@ namespace WindowsFormsApplication1.Forms.Appointments
             }
         }
 
-        private void BtnRemoveTestResult_Click(object sender, EventArgs e)
+        private void btnRemoveTestResult_Click(object sender, EventArgs e)
         {
             RemoveTestResultFromListView();
+        }
+        private void btnNew_Click(object sender, EventArgs e)
+        {
+            new Appointments.Add(patient, appointmentManager, testResultManager).Show();
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            FillListViewAppointmentsByPatient();
+            txtDoctorsRemarks.Clear();
+            listViewTestResults.Clear();
+            newtestResults.Clear();
+            removedTestResults.Clear();
+            btnUpdateAppointment.Enabled = false;
+            btnCancelAppointment.Enabled = false;
         }
 
         public void RemoveTestResultFromListView()
@@ -91,8 +111,8 @@ namespace WindowsFormsApplication1.Forms.Appointments
             if ((listViewTestResults.SelectedItems.Count > 0))
             {
                 var testResult = (TestResult)listViewTestResults.SelectedItems[0].Tag;
-                removedTestResults.Add(testResult); //  add selected item to removedTestResults
-                listViewTestResults.SelectedItems[0].Remove();// remove selected item in list view
+                removedTestResults.Add(testResult);
+                listViewTestResults.SelectedItems[0].Remove();
             }
         }
 
@@ -109,27 +129,31 @@ namespace WindowsFormsApplication1.Forms.Appointments
         public void FillListViewAppointmentsByDesiredDate()
         {
             listViewDateTime.Items.Clear();
-            var appointments = appointmentManager.GetWithWhereCondition
+            AddListViewAppointmentsItems(GetAppointmentsByDesiredDate());
+        }
+
+        public IList<Appointment> GetAppointmentsByDesiredDate()
+        {
+            return appointmentManager.GetWithWhereCondition
                 <Appointment>($"cast(DesiredDateTime as date) =" +
                 $" '{dateTimePickerAppointment.Value.ToString("yyyy-MM-dd")}' and PatientId = {patient.Id}");
-
-            foreach (var appointment in appointments)
-            {
-                var row = new string[]
-                {
-                    appointment.DesiredDateTime.ToString()
-                };
-                var listViewItem = new ListViewItem(row);
-                listViewItem.Tag = appointment;
-                listViewDateTime.Items.Add(listViewItem);
-            }
         }
+
 
         public void FillListViewAppointmentsByPatient()
         {
             listViewDateTime.Items.Clear();
-            var appointments = appointmentManager.GetWithWhereCondition
-                <Appointment>($"PatientId = '{patient.Id}'");
+            AddListViewAppointmentsItems(GetAppointmentByPatientId(patient.Id));
+        }
+
+        public IList<Appointment> GetAppointmentByPatientId(int id)
+        {
+            return appointmentManager.GetWithWhereCondition
+                   <Appointment>($"PatientId = '{patient.Id}'");
+        }
+
+        public void AddListViewAppointmentsItems(IList<Appointment> appointments)
+        {
             foreach (var appointment in appointments)
             {
                 var row = new string[]
@@ -161,10 +185,20 @@ namespace WindowsFormsApplication1.Forms.Appointments
         public void FillListViewTestResultsByAppointment(Appointment appointment)
         {
             listViewTestResults.Items.Clear();
-            var testResultsData = testResultManager.GetWithWhereCondition<TestResult>($"AppointmentId = {appointment.Id}");
-            if (testResultsData != null)
+            AddListViewTestResultItems(GetTestResultsByAppointmentId(appointment.Id));
+        }
+
+        public IList<TestResult> GetTestResultsByAppointmentId(int appointmentId)
+        {
+            return testResultManager.
+                GetWithWhereCondition<TestResult>($"AppointmentId = {appointmentId}");
+        }
+
+        public void AddListViewTestResultItems(IList<TestResult> testResults)
+        {
+            if (testResults != null)
             {
-                foreach (var testResult in testResultsData)
+                foreach (var testResult in testResults)
                 {
                     var row = new string[] { testResult.Name };
                     var listViewItem = new ListViewItem(row);
@@ -207,7 +241,7 @@ namespace WindowsFormsApplication1.Forms.Appointments
 
                     if (appointmentManager.Update(appointment))
                     {
-                        AddTestResults(appointment.Id);
+                        InsertTestResultOfAppointment(appointment.Id);
                         DeleteTestResults();
                         MessageBox.Show("Appointment updated successfully.");
                     }
@@ -215,7 +249,7 @@ namespace WindowsFormsApplication1.Forms.Appointments
             }
         }
 
-        public void AddTestResults(int id)
+        public void InsertTestResultOfAppointment(int id)
         {
             if (id > 0 && newtestResults.Count > 0)
             {
@@ -240,15 +274,15 @@ namespace WindowsFormsApplication1.Forms.Appointments
             return patientManager.GetById<Patient>(appointment.PatientId);
         }
 
-        // Where to put this code?
-        public bool isValidDateAndTime()
+        // TODO: Separate methods for validation, not placed in one method.
+        public bool isValidDateAndTime(Appointment appointment)
         {
             var desiredDateAndTime = dateTimePickerAppointment.Value;
             var desiredTime = dateTimePickerAppointment.Value.TimeOfDay;
 
-            if (IsPastCurrentDateTime(desiredDateAndTime) ||
+            if (/*IsPastCurrentDateTime(desiredDateAndTime) ||*/
                 IsOutSideClinicShedule(desiredTime) ||
-                IsConflicting(desiredDateAndTime))
+                IsConflicting(desiredDateAndTime, appointment))
             {
                 return false;
             }
@@ -258,23 +292,16 @@ namespace WindowsFormsApplication1.Forms.Appointments
 
         public bool IsOutSideClinicShedule(TimeSpan time)
         {
-            const int STARTINGHOUROFAPPOINTMENTS = 8;
-            const int STARTINGMINUNTESOFAPPOINTMENTS = 0;
-            const int STARTINGSECONDSOFAPPOINTMENTS = 0;
-            const int ENDINGHOUROFAPPOINTMENTS = 17;
-            const int ENDINGMINUTESOFAPPOINTMENTS = 0;
-            const int ENDINGSECONDSOFAPPOINTMENTS = 0;
-            const int STARTINGHOURSOFDRSROUNDS = 11;
-            const int STARTINGMINUTESOFDRSROUNDS = 40;
-            const int STARTINGSECONDSOFDRSROUNDS = 0;
-            const int ENDINGHOURSOFDRSROUNDS = 15;
-            const int ENDINGMINUTESOFDRSROUNDS = 0;
-            const int ENDINGSECONDSOFDRSROUNDS = 0;
+            const int OPENING_HOUR_OF_APPOINTMENTS = 8;
+            const int CLOSING_HOUR_OF_APPOINTMENTS = 17;
+            const int STARTING_HOUR_OF_DRS_ROUNDS = 11;
+            const int STARTING_MINUTES_OF_DRS_ROUNDS = 40;
+            const int CLOSING_HOUR_OF_DRS_ROUNDS = 15;
 
-            TimeSpan startOfAppointments = new TimeSpan(STARTINGHOUROFAPPOINTMENTS, STARTINGMINUNTESOFAPPOINTMENTS, STARTINGSECONDSOFAPPOINTMENTS);
-            TimeSpan closingOfAppointments = new TimeSpan(ENDINGHOUROFAPPOINTMENTS, ENDINGMINUTESOFAPPOINTMENTS, ENDINGSECONDSOFAPPOINTMENTS);
-            TimeSpan startOfRounds = new TimeSpan(STARTINGHOURSOFDRSROUNDS, STARTINGMINUTESOFDRSROUNDS, STARTINGSECONDSOFDRSROUNDS);
-            TimeSpan endOfRounds = new TimeSpan(ENDINGHOURSOFDRSROUNDS, ENDINGMINUTESOFDRSROUNDS, ENDINGSECONDSOFDRSROUNDS);
+            var startOfAppointments = new TimeSpan(OPENING_HOUR_OF_APPOINTMENTS, 0, 0);
+            var closingOfAppointments = new TimeSpan(CLOSING_HOUR_OF_APPOINTMENTS, 0, 0);
+            var startOfRounds = new TimeSpan(STARTING_HOUR_OF_DRS_ROUNDS, STARTING_MINUTES_OF_DRS_ROUNDS, 0);
+            var endOfRounds = new TimeSpan(CLOSING_HOUR_OF_DRS_ROUNDS, 0, 0);
 
             if (time < startOfAppointments || time > closingOfAppointments ||
                 time > startOfRounds && time < endOfRounds)
@@ -286,12 +313,13 @@ namespace WindowsFormsApplication1.Forms.Appointments
             return false;
         }
 
-        public bool IsConflicting(DateTime dateTime)
+        public bool IsConflicting(DateTime dateTime, Appointment selectedAppointment)
         {
             int maxMinutesPerPatient = 20;
             TimeSpan maxMinsPerAppointment = new TimeSpan(0, 0, maxMinutesPerPatient, 0);
 
-            var appointments = appointmentManager.GetAll<Appointment>();
+            var appointments = appointmentManager.GetAll<Appointment>().ToList();
+            appointments.Remove(appointments.Find(x => x.Id == selectedAppointment.Id));
             if (appointments != null)
             {
                 foreach (var appointment in appointments)
@@ -312,6 +340,7 @@ namespace WindowsFormsApplication1.Forms.Appointments
             return false;
         }
 
+        // Musangit diri sa pag.update
         public bool IsPastCurrentDateTime(DateTime date)
         {
             var currentDateTime = DateTime.Now;
@@ -324,16 +353,6 @@ namespace WindowsFormsApplication1.Forms.Appointments
             return false;
         }
 
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
-            FillListViewAppointmentsByPatient();
-            txtDoctorsRemarks.Clear();
-            listViewTestResults.Clear();
-            newtestResults.Clear();
-            removedTestResults.Clear();
-            btnUpdateAppointment.Enabled = false;
-            btnCancelAppointment.Enabled = false;
-        }
 
         private void listViewTestResults_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -370,11 +389,6 @@ namespace WindowsFormsApplication1.Forms.Appointments
             MemoryStream ms = new MemoryStream();
             image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
             return ms.ToArray();
-        }
-
-        private void btnNew_Click(object sender, EventArgs e)
-        {
-            new Appointments.Add(patient, appointmentManager, testResultManager).Show();
         }
     }
 }

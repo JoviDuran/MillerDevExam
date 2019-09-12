@@ -79,3 +79,10 @@ E:\MillerDevExam\WindowsFormsApplication1.2\FuaClinic.Business\bin\Debug\Unity.C
 E:\MillerDevExam\WindowsFormsApplication1.2\FuaClinic.Business\obj\Debug\FuaClinic.Business.csprojResolveAssemblyReference.cache
 E:\MillerDevExam\WindowsFormsApplication1.2\FuaClinic.Business\obj\Debug\FuaClinic.Business.dll
 E:\MillerDevExam\WindowsFormsApplication1.2\FuaClinic.Business\obj\Debug\FuaClinic.Business.pdb
+G:\WindowsFormsApplication1.2\FuaClinic.Business\obj\Debug\FuaClinic.Business.csprojAssemblyReference.cache
+D:\WindowsFormsApplication1.2\FuaClinic.Business\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\WindowsFormsApplication1.2\FuaClinic.Business\bin\Debug\Unity.Abstractions.dll
+D:\WindowsFormsApplication1.2\FuaClinic.Business\bin\Debug\Unity.Container.dll
+D:\WindowsFormsApplication1.2\FuaClinic.Business\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+D:\WindowsFormsApplication1.2\FuaClinic.Business\bin\Debug\Unity.Abstractions.pdb
+D:\WindowsFormsApplication1.2\FuaClinic.Business\bin\Debug\Unity.Container.pdb

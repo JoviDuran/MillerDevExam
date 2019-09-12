@@ -99,8 +99,6 @@ D:\WindowsFormsApplication1.2\WindowsFormsApplication1\bin\Debug\Dapper.dll
 D:\WindowsFormsApplication1.2\WindowsFormsApplication1\bin\Debug\FuaClinic.Business.dll
 D:\WindowsFormsApplication1.2\WindowsFormsApplication1\bin\Debug\FuaClinic.Business.pdb
 D:\WindowsFormsApplication1.2\WindowsFormsApplication1\bin\Debug\Dapper.xml
-D:\WindowsFormsApplication1.2\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ConsultationForms.Add.resources
-D:\WindowsFormsApplication1.2\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ConsultationForms.Read.resources
 D:\WindowsFormsApplication1.2\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
 D:\WindowsFormsApplication1.2\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
 C:\Users\mllrdevph13\Desktop\WindowsFormsApplication1.2\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe.config
@@ -121,7 +119,6 @@ C:\Users\mllrdevph13\Desktop\WindowsFormsApplication1.2\WindowsFormsApplication1
 C:\Users\mllrdevph13\Desktop\WindowsFormsApplication1.2\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
 C:\Users\mllrdevph13\Desktop\WindowsFormsApplication1.2\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Read.resources
 C:\Users\mllrdevph13\Desktop\WindowsFormsApplication1.2\WindowsFormsApplication1\obj\Debug\FuaClinic.csproj.GenerateResource.Cache
-D:\WindowsFormsApplication1.2\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Forms.TestResults.TestResults.resources
 G:\WindowsFormsApplication1.2\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe.config
 G:\WindowsFormsApplication1.2\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe
 G:\WindowsFormsApplication1.2\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
@@ -142,7 +139,6 @@ G:\WindowsFormsApplication1.2\WindowsFormsApplication1\obj\Debug\WindowsFormsApp
 G:\WindowsFormsApplication1.2\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Forms.Consultations.Read.resources
 G:\WindowsFormsApplication1.2\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Add.resources
 G:\WindowsFormsApplication1.2\WindowsFormsApplication1\obj\Debug\FuaClinic.Home.resources
-G:\WindowsFormsApplication1.2\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Forms.TestResults.Add.resources
 G:\WindowsFormsApplication1.2\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Forms.TestResults.Read.resources
 G:\WindowsFormsApplication1.2\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
 G:\WindowsFormsApplication1.2\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Read.resources
@@ -177,3 +173,13 @@ E:\MillerDevExam\WindowsFormsApplication1.2\WindowsFormsApplication1\bin\Debug\U
 E:\MillerDevExam\WindowsFormsApplication1.2\WindowsFormsApplication1\bin\Debug\Unity.Container.pdb
 E:\MillerDevExam\WindowsFormsApplication1.2\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
 E:\MillerDevExam\WindowsFormsApplication1.2\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
+D:\WindowsFormsApplication1.2\WindowsFormsApplication1\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\WindowsFormsApplication1.2\WindowsFormsApplication1\bin\Debug\Unity.Abstractions.dll
+D:\WindowsFormsApplication1.2\WindowsFormsApplication1\bin\Debug\Unity.Container.dll
+D:\WindowsFormsApplication1.2\WindowsFormsApplication1\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+D:\WindowsFormsApplication1.2\WindowsFormsApplication1\bin\Debug\Unity.Abstractions.pdb
+D:\WindowsFormsApplication1.2\WindowsFormsApplication1\bin\Debug\Unity.Container.pdb
+D:\WindowsFormsApplication1.2\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Forms.Appointments.Read.resources
+D:\WindowsFormsApplication1.2\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Forms.Consultations.Add.resources
+D:\WindowsFormsApplication1.2\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Forms.Consultations.Read.resources
+D:\WindowsFormsApplication1.2\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Forms.TestResults.Read.resources

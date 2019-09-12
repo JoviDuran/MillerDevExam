@@ -38,8 +38,7 @@ namespace WindowsFormsApplication1.Forms.Appointments
         {
             if (isValidDateAndTime())
             {
-                var appointmentId = SaveAppointment(CreateAppointment());
-                SaveTestResults(appointmentId);
+                SaveTestResults(SaveAppointment(CreateAppointment()));
                 MessageBox.Show("Appointment created successfully");
                 this.Close();
             }
@@ -66,37 +65,37 @@ namespace WindowsFormsApplication1.Forms.Appointments
         public void FillListViewAppointments()
         {
             listViewAppointments.Items.Clear();
-            var appointments = appointmentManager.GetAll<Appointment>();
-            foreach (var appointment in appointments)
-            {
-                var row = new string[]
-                {
-                    appointment.DesiredDateTime.ToString()
-                };
-                var listViewItem = new ListViewItem(row);
-                listViewItem.Tag = appointment;
-                listViewAppointments.Items.Add(listViewItem);
-            }
+            AddListViewAppointmentsItems(GetAllAppointments());
         }
-
         public void FillListViewAppointmentsByDesiredDate()
         {
             listViewAppointments.Items.Clear();
-            var appointments = appointmentManager.GetWithWhereCondition
-                <Appointment>($"cast(DesiredDateTime as date) =" +
-                $" '{dateTimePickerAppointment.Value.ToString("yyyy-MM-dd")}'");
+            AddListViewAppointmentsItems(GetAppointmentsByDate());
+        }
 
+        public void AddListViewAppointmentsItems(IList<Appointment> appointments)
+        {
             foreach (var appointment in appointments)
             {
-                var row = new string[]
-                {
-                    appointment.DesiredDateTime.ToString()
-                };
+                var row = new string[] { appointment.DesiredDateTime.ToString() };
                 var listViewItem = new ListViewItem(row);
                 listViewItem.Tag = appointment;
                 listViewAppointments.Items.Add(listViewItem);
             }
         }
+
+        public IList<Appointment> GetAllAppointments()
+        {
+            return appointmentManager.GetAll<Appointment>();
+        }
+        public IList<Appointment> GetAppointmentsByDate()
+        {
+            return appointmentManager.GetWithWhereCondition
+                <Appointment>($"cast(DesiredDateTime as date) =" +
+                $" '{dateTimePickerAppointment.Value.ToString("yyyy-MM-dd")}'");
+        }
+
+        
 
         public bool isValidDateAndTime()
         {
@@ -145,8 +144,8 @@ namespace WindowsFormsApplication1.Forms.Appointments
 
         public bool IsConflicting(DateTime dateTime)
         {
-            int maxMinutesPerPatient = 20;
-            TimeSpan maxMinsPerAppointment = new TimeSpan(0, 0, maxMinutesPerPatient, 0);
+            var maxMinutesPerPatient = 20;
+            var maxMinsPerAppointment = new TimeSpan(0, 0, maxMinutesPerPatient, 0);
 
             var appointments = appointmentManager.GetAll<Appointment>();
             if (appointments != null)
@@ -190,11 +189,11 @@ namespace WindowsFormsApplication1.Forms.Appointments
                 DoctorsRemarks = txtDoctorsRemarks.Text
             };
         }
+
         public int SaveAppointment(Appointment appointment)
         {
             return appointmentManager.Add(appointment);
         }
-
 
         private void dateTimePickerAppointment_KeyUp(object sender, KeyEventArgs e)
         {
@@ -210,20 +209,19 @@ namespace WindowsFormsApplication1.Forms.Appointments
             };
         }
 
-        public void SaveTestResults(int id)
+        public void SaveTestResults(int appointmentId)
         {
-            if (id > 0)
+            if (appointmentId > 0)
             {
                 foreach (var testResult in testResults)
                 {
-                    testResult.AppointmentId = id;
+                    testResult.AppointmentId = appointmentId;
                     testResultManager.Add(testResult);
                 }
 
                 testResults.Clear();
             }
         }
-
 
         public byte[] ConvertImageToBinary(Image image)
         {
@@ -235,13 +233,21 @@ namespace WindowsFormsApplication1.Forms.Appointments
         public void FillListViewTestResults()
         {
             listViewTestResults.Items.Clear();
+            AddListViewTestResultItems(testResults);
+           
+        }
 
-            foreach (var testResult in testResults)
+        public void AddListViewTestResultItems(List<TestResult> testResults)
+        {
+            if (testResults !=null)
             {
-                var row = new string[] { testResult.Name };
-                var listViewItem = new ListViewItem(row);
-                listViewItem.Tag = testResult;
-                listViewTestResults.Items.Add(listViewItem);
+                foreach (var testResult in testResults)
+                {
+                    var row = new string[] { testResult.Name };
+                    var listViewItem = new ListViewItem(row);
+                    listViewItem.Tag = testResult;
+                    listViewTestResults.Items.Add(listViewItem);
+                }
             }
         }
     }

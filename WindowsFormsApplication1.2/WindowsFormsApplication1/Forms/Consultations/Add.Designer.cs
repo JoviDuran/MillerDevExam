@@ -67,7 +67,7 @@
             this.btnSaveConsulltation.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btnSaveConsulltation.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSaveConsulltation.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnSaveConsulltation.Location = new System.Drawing.Point(102, 136);
+            this.btnSaveConsulltation.Location = new System.Drawing.Point(105, 158);
             this.btnSaveConsulltation.Name = "btnSaveConsulltation";
             this.btnSaveConsulltation.Size = new System.Drawing.Size(107, 31);
             this.btnSaveConsulltation.TabIndex = 110;

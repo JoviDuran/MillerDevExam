@@ -242,7 +242,7 @@
             this.btnRemoveTestResult.TabIndex = 143;
             this.btnRemoveTestResult.Text = "Remove";
             this.btnRemoveTestResult.UseVisualStyleBackColor = false;
-            this.btnRemoveTestResult.Click += new System.EventHandler(this.BtnRemoveTestResult_Click);
+            this.btnRemoveTestResult.Click += new System.EventHandler(this.btnRemoveTestResult_Click);
             // 
             // btnAddTestResult
             // 
@@ -255,7 +255,7 @@
             this.btnAddTestResult.TabIndex = 144;
             this.btnAddTestResult.Text = "Upload";
             this.btnAddTestResult.UseVisualStyleBackColor = false;
-            this.btnAddTestResult.Click += new System.EventHandler(this.BtnUploadTestResult_Click);
+            this.btnAddTestResult.Click += new System.EventHandler(this.btnUploadTestResult_Click);
             // 
             // groupBox1
             // 
