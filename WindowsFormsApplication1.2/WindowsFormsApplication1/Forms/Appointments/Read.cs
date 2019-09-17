@@ -8,9 +8,9 @@ using System.Windows.Forms;
 using WindowsFormsApplication1.Utiliies;
 using System.IO;
 using System.Data;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace WindowsFormsApplication1.Forms.Appointments
 {
@@ -22,6 +22,7 @@ namespace WindowsFormsApplication1.Forms.Appointments
         List<TestResult> newtestResults = new List<TestResult>();
         List<TestResult> removedTestResults = new List<TestResult>();
         Patient patient;
+
 
         public Read(Patient patient, IPatientManager patientManager, IAppointmentManager appointmentManager, ITestResultManager testResultManager)
         {
@@ -46,14 +47,18 @@ namespace WindowsFormsApplication1.Forms.Appointments
         {
             var appointment = GetSelectedAppointmentFromList();
 
-            if (isValidDateAndTime(appointment))
+
+            if (isValidDateAndTime(appointment) && HasChanges(appointment))
             {
                 UpdateAppointment(appointment);
                 InsertTestResultOfAppointment(appointment.Id);
                 FillListViewAppointmentsByPatient();
-                btnUpdateAppointment.Enabled = false;
             }
-            
+        }
+
+        public bool HasNewOrRemovedTestResults()
+        {
+            return (newtestResults.Count > 0 || removedTestResults.Count > 0);
         }
 
         private void btnCancelAppointment_Click(object sender, EventArgs e)
@@ -90,9 +95,13 @@ namespace WindowsFormsApplication1.Forms.Appointments
         {
             RemoveTestResultFromListView();
         }
+
         private void btnNew_Click(object sender, EventArgs e)
         {
-            new Appointments.Add(patient, appointmentManager, testResultManager).Show();
+            if (new Appointments.Add(patient, appointmentManager, testResultManager).ShowDialog() == DialogResult.OK)
+            {
+                FillListViewAppointmentsByPatient();
+            }
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
@@ -231,23 +240,43 @@ namespace WindowsFormsApplication1.Forms.Appointments
         {
             if (listViewDateTime.SelectedItems.Count > 0)
             {
+                appointment.DesiredDateTime = dateTimePickerAppointment.Value;
+                appointment.DoctorsRemarks = txtDoctorsRemarks.Text;
                 var messageBoxResult = MessageBox.Show("Are you sure you want to update appointment?",
-                   "Confirm Update.", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+               "Confirm Update.", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (messageBoxResult == DialogResult.Yes)
                 {
-                    appointment.DesiredDateTime = dateTimePickerAppointment.Value;
-                    appointment.DoctorsRemarks = txtDoctorsRemarks.Text;
-
                     if (appointmentManager.Update(appointment))
                     {
                         InsertTestResultOfAppointment(appointment.Id);
                         DeleteTestResults();
                         MessageBox.Show("Appointment updated successfully.");
+                        btnUpdateAppointment.Enabled = false;
+                        btnNewAppointment.Enabled = true;
                     }
                 }
+
+
             }
         }
+
+        public bool HasChanges(Appointment appointment)
+        {
+            var oldDateTime = appointment.DesiredDateTime;
+            var oldDoctorsRemarks = appointment.DoctorsRemarks;
+            appointment.DesiredDateTime = dateTimePickerAppointment.Value;
+            appointment.DoctorsRemarks = txtDoctorsRemarks.Text;
+            if ((oldDateTime.Equals(appointment.DesiredDateTime) 
+                && oldDoctorsRemarks.Equals(appointment.DoctorsRemarks)) 
+                && !HasNewOrRemovedTestResults())
+            {
+                MessageBox.Show("Change the values first before updating.");
+                return false;
+            }
+            return true;
+        }
+
 
         public void InsertTestResultOfAppointment(int id)
         {
@@ -274,13 +303,12 @@ namespace WindowsFormsApplication1.Forms.Appointments
             return patientManager.GetById<Patient>(appointment.PatientId);
         }
 
-        // TODO: Separate methods for validation, not placed in one method.
         public bool isValidDateAndTime(Appointment appointment)
         {
             var desiredDateAndTime = dateTimePickerAppointment.Value;
             var desiredTime = dateTimePickerAppointment.Value.TimeOfDay;
 
-            if (/*IsPastCurrentDateTime(desiredDateAndTime) ||*/
+            if (IsPastCurrentDateTime(desiredDateAndTime) ||
                 IsOutSideClinicShedule(desiredTime) ||
                 IsConflicting(desiredDateAndTime, appointment))
             {
@@ -315,11 +343,12 @@ namespace WindowsFormsApplication1.Forms.Appointments
 
         public bool IsConflicting(DateTime dateTime, Appointment selectedAppointment)
         {
-            int maxMinutesPerPatient = 20;
-            TimeSpan maxMinsPerAppointment = new TimeSpan(0, 0, maxMinutesPerPatient, 0);
+            const int MAX_MINUTES_PER_PATIENT = 20;
+            TimeSpan maxMinsPerAppointment = new TimeSpan(0, 0, MAX_MINUTES_PER_PATIENT, 0);
 
             var appointments = appointmentManager.GetAll<Appointment>().ToList();
             appointments.Remove(appointments.Find(x => x.Id == selectedAppointment.Id));
+
             if (appointments != null)
             {
                 foreach (var appointment in appointments)
@@ -340,7 +369,6 @@ namespace WindowsFormsApplication1.Forms.Appointments
             return false;
         }
 
-        // Musangit diri sa pag.update
         public bool IsPastCurrentDateTime(DateTime date)
         {
             var currentDateTime = DateTime.Now;
@@ -370,25 +398,46 @@ namespace WindowsFormsApplication1.Forms.Appointments
             }
         }
 
-        private void dateTimePickerAppointment_KeyUp(object sender, KeyEventArgs e)
-        {
-            FillListViewAppointmentsByDesiredDate();
-        }
 
         public TestResult CreateTestResult(Image image, string name)
         {
+
             return new TestResult()
             {
                 Name = name,
                 Image = ConvertImageToBinary(image)
             };
+
         }
+
 
         public byte[] ConvertImageToBinary(Image image)
         {
             MemoryStream ms = new MemoryStream();
             image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
             return ms.ToArray();
+        }
+
+        private void btnToPDF_Click(object sender, EventArgs e)
+        {
+
+            printPreviewDialog.Document = printDocument;
+            printPreviewDialog.ShowDialog();
+        }
+
+        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            e.Graphics.DrawString("First Name: " + txtFirstNameAppointment.Text, new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(25, 100));
+            e.Graphics.DrawString("Last Name: " + txtLastNameAppointment.Text, new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(25, 150));
+            e.Graphics.DrawString("Doctor's Remarks: " + txtDoctorsRemarks.Text, new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(25, 200));
+            e.Graphics.DrawString("Attending Physician: Dr. John Doe T. Fua", new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(25, 250));
+            e.Graphics.DrawString("Date and Time of Appointment: " + dateTimePickerAppointment.Value.ToString(), new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(25, 300));
+
+        }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            printDocument.Print();
         }
     }
 }

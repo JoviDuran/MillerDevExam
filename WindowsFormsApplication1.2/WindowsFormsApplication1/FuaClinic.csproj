@@ -175,6 +175,7 @@
     <None Include="Resources\logo.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Forms\PDF\" />
     <Folder Include="Images\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

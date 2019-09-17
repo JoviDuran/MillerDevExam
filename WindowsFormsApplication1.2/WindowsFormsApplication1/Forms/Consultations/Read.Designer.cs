@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridViewConsultations = new System.Windows.Forms.DataGridView();
             this.lblName = new System.Windows.Forms.Label();
             this.btnAddConsultation = new System.Windows.Forms.Button();
@@ -40,7 +40,9 @@
             this.lblLastNameAppointment = new System.Windows.Forms.Label();
             this.txtFirstNameConsultation = new System.Windows.Forms.TextBox();
             this.lblFirstNameAppointment = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewConsultations)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridViewConsultations
@@ -49,19 +51,19 @@
             this.dataGridViewConsultations.BackgroundColor = System.Drawing.Color.White;
             this.dataGridViewConsultations.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dataGridViewConsultations.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewConsultations.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridViewConsultations.Location = new System.Drawing.Point(326, 70);
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewConsultations.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dataGridViewConsultations.Location = new System.Drawing.Point(341, 58);
             this.dataGridViewConsultations.Name = "dataGridViewConsultations";
             this.dataGridViewConsultations.RowHeadersVisible = false;
             this.dataGridViewConsultations.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewConsultations.Size = new System.Drawing.Size(143, 217);
+            this.dataGridViewConsultations.Size = new System.Drawing.Size(209, 221);
             this.dataGridViewConsultations.TabIndex = 126;
             // 
             // lblName
@@ -78,7 +80,7 @@
             // 
             this.btnAddConsultation.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btnAddConsultation.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddConsultation.Location = new System.Drawing.Point(107, 364);
+            this.btnAddConsultation.Location = new System.Drawing.Point(140, 364);
             this.btnAddConsultation.Name = "btnAddConsultation";
             this.btnAddConsultation.Size = new System.Drawing.Size(95, 28);
             this.btnAddConsultation.TabIndex = 143;
@@ -91,7 +93,7 @@
             this.label6.AccessibleRole = System.Windows.Forms.AccessibleRole.Clock;
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(25, 136);
+            this.label6.Location = new System.Drawing.Point(17, 87);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(40, 16);
             this.label6.TabIndex = 144;
@@ -101,7 +103,7 @@
             // 
             this.dateOfConsultationPicker.CustomFormat = "yyyy-MM-dd";
             this.dateOfConsultationPicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateOfConsultationPicker.Location = new System.Drawing.Point(145, 132);
+            this.dateOfConsultationPicker.Location = new System.Drawing.Point(137, 83);
             this.dateOfConsultationPicker.Name = "dateOfConsultationPicker";
             this.dateOfConsultationPicker.Size = new System.Drawing.Size(143, 20);
             this.dateOfConsultationPicker.TabIndex = 145;
@@ -111,7 +113,7 @@
             // btnViewAll
             // 
             this.btnViewAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnViewAll.Location = new System.Drawing.Point(316, 364);
+            this.btnViewAll.Location = new System.Drawing.Point(349, 363);
             this.btnViewAll.Name = "btnViewAll";
             this.btnViewAll.Size = new System.Drawing.Size(89, 31);
             this.btnViewAll.TabIndex = 147;
@@ -123,7 +125,7 @@
             // 
             this.btnDeleteConsultation.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btnDeleteConsultation.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeleteConsultation.Location = new System.Drawing.Point(215, 364);
+            this.btnDeleteConsultation.Location = new System.Drawing.Point(248, 364);
             this.btnDeleteConsultation.Name = "btnDeleteConsultation";
             this.btnDeleteConsultation.Size = new System.Drawing.Size(95, 28);
             this.btnDeleteConsultation.TabIndex = 148;
@@ -133,7 +135,7 @@
             // 
             // txtLastNameConsultation
             // 
-            this.txtLastNameConsultation.Location = new System.Drawing.Point(145, 100);
+            this.txtLastNameConsultation.Location = new System.Drawing.Point(137, 51);
             this.txtLastNameConsultation.Name = "txtLastNameConsultation";
             this.txtLastNameConsultation.ReadOnly = true;
             this.txtLastNameConsultation.Size = new System.Drawing.Size(143, 20);
@@ -143,7 +145,7 @@
             // 
             this.lblLastNameAppointment.AutoSize = true;
             this.lblLastNameAppointment.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLastNameAppointment.Location = new System.Drawing.Point(25, 104);
+            this.lblLastNameAppointment.Location = new System.Drawing.Point(17, 55);
             this.lblLastNameAppointment.Name = "lblLastNameAppointment";
             this.lblLastNameAppointment.Size = new System.Drawing.Size(73, 16);
             this.lblLastNameAppointment.TabIndex = 151;
@@ -151,7 +153,7 @@
             // 
             // txtFirstNameConsultation
             // 
-            this.txtFirstNameConsultation.Location = new System.Drawing.Point(145, 70);
+            this.txtFirstNameConsultation.Location = new System.Drawing.Point(137, 21);
             this.txtFirstNameConsultation.Name = "txtFirstNameConsultation";
             this.txtFirstNameConsultation.ReadOnly = true;
             this.txtFirstNameConsultation.Size = new System.Drawing.Size(143, 20);
@@ -161,26 +163,35 @@
             // 
             this.lblFirstNameAppointment.AutoSize = true;
             this.lblFirstNameAppointment.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFirstNameAppointment.Location = new System.Drawing.Point(25, 71);
+            this.lblFirstNameAppointment.Location = new System.Drawing.Point(17, 22);
             this.lblFirstNameAppointment.Name = "lblFirstNameAppointment";
             this.lblFirstNameAppointment.Size = new System.Drawing.Size(73, 16);
             this.lblFirstNameAppointment.TabIndex = 149;
             this.lblFirstNameAppointment.Text = "First Name";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.txtLastNameConsultation);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.dateOfConsultationPicker);
+            this.groupBox1.Controls.Add(this.lblLastNameAppointment);
+            this.groupBox1.Controls.Add(this.lblFirstNameAppointment);
+            this.groupBox1.Controls.Add(this.txtFirstNameConsultation);
+            this.groupBox1.Location = new System.Drawing.Point(18, 53);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(307, 126);
+            this.groupBox1.TabIndex = 154;
+            this.groupBox1.TabStop = false;
             // 
             // Read
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(509, 561);
-            this.Controls.Add(this.txtLastNameConsultation);
-            this.Controls.Add(this.lblLastNameAppointment);
-            this.Controls.Add(this.txtFirstNameConsultation);
-            this.Controls.Add(this.lblFirstNameAppointment);
+            this.ClientSize = new System.Drawing.Size(583, 561);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnDeleteConsultation);
             this.Controls.Add(this.btnViewAll);
-            this.Controls.Add(this.dateOfConsultationPicker);
-            this.Controls.Add(this.label6);
             this.Controls.Add(this.btnAddConsultation);
             this.Controls.Add(this.lblName);
             this.Controls.Add(this.dataGridViewConsultations);
@@ -189,6 +200,8 @@
             this.Text = "Consultations";
             this.Load += new System.EventHandler(this.Read_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewConsultations)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -206,5 +219,6 @@
         private System.Windows.Forms.Label lblLastNameAppointment;
         private System.Windows.Forms.TextBox txtFirstNameConsultation;
         private System.Windows.Forms.Label lblFirstNameAppointment;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }

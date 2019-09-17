@@ -42,6 +42,7 @@
             this.btnAddTestResult = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -121,6 +122,7 @@
             this.listViewAppointments.Location = new System.Drawing.Point(335, 141);
             this.listViewAppointments.Name = "listViewAppointments";
             this.listViewAppointments.Size = new System.Drawing.Size(276, 350);
+            this.listViewAppointments.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.listViewAppointments.TabIndex = 146;
             this.listViewAppointments.UseCompatibleStateImageBehavior = false;
             this.listViewAppointments.View = System.Windows.Forms.View.Details;
@@ -143,9 +145,10 @@
             // btnSave
             // 
             this.btnSave.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnSave.Location = new System.Drawing.Point(269, 540);
+            this.btnSave.Location = new System.Drawing.Point(207, 536);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(123, 22);
             this.btnSave.TabIndex = 148;
@@ -185,11 +188,26 @@
             this.groupBox2.TabIndex = 151;
             this.groupBox2.TabStop = false;
             // 
+            // btnCancel
+            // 
+            this.btnCancel.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnCancel.Location = new System.Drawing.Point(346, 536);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(123, 22);
+            this.btnCancel.TabIndex = 152;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = false;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
             // Add
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(682, 679);
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnAddTestResult);
@@ -228,5 +246,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button btnCancel;
     }
 }

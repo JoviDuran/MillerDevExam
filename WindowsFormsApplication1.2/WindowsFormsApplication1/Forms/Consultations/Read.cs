@@ -34,9 +34,7 @@ namespace WindowsFormsApplication1.Forms.Consultations
 
         private void Add(object sender, EventArgs e)
         {
-            var consultation = new Consultation();
-            consultation.PatientId = patient.Id;
-            new Add(consultation, consultationManager).Show();
+            new Add(patient, consultationManager).Show();
         }
 
         private void dateOfConsultationPicker_KeyUp(object sender, KeyEventArgs e)

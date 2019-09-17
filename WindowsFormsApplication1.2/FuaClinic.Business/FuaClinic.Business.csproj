@@ -73,7 +73,7 @@
     <Compile Include="Managers\PatientManager.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Appointment.cs" />
-    <Compile Include="Models\Consulation.cs" />
+    <Compile Include="Models\Consultation.cs" />
     <Compile Include="Models\Diagnosis.cs" />
     <Compile Include="Models\EmergencyContact.cs" />
     <Compile Include="Models\Patient.cs" />

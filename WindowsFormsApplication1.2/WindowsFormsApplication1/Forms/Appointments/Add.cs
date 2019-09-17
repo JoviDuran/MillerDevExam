@@ -88,14 +88,12 @@ namespace WindowsFormsApplication1.Forms.Appointments
         {
             return appointmentManager.GetAll<Appointment>();
         }
+
         public IList<Appointment> GetAppointmentsByDate()
         {
-            return appointmentManager.GetWithWhereCondition
-                <Appointment>($"cast(DesiredDateTime as date) =" +
+            return appointmentManager.GetWithWhereCondition<Appointment>($"cast(DesiredDateTime as date) =" +
                 $" '{dateTimePickerAppointment.Value.ToString("yyyy-MM-dd")}'");
         }
-
-        
 
         public bool isValidDateAndTime()
         {
@@ -234,12 +232,12 @@ namespace WindowsFormsApplication1.Forms.Appointments
         {
             listViewTestResults.Items.Clear();
             AddListViewTestResultItems(testResults);
-           
+
         }
 
         public void AddListViewTestResultItems(List<TestResult> testResults)
         {
-            if (testResults !=null)
+            if (testResults != null)
             {
                 foreach (var testResult in testResults)
                 {
@@ -249,6 +247,11 @@ namespace WindowsFormsApplication1.Forms.Appointments
                     listViewTestResults.Items.Add(listViewItem);
                 }
             }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

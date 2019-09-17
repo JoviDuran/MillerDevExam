@@ -74,7 +74,7 @@ namespace WindowsFormsApplication1
             var consultation = new Consultation();
             consultation.PatientId = patientId;
             consultation.Diagnosis = txtDiagnosis.Text;
-            consultation.Date = dateTimePickerDateOfConsultation.Value;
+            consultation.DateTime = dateTimePickerDateOfConsultation.Value;
             return consultation;
         }
 
