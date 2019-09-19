@@ -6,7 +6,7 @@ using FuaClinic.Business.Managers;
 using System.Collections.Generic;
 using FuaClinic.Business.Managers.ManagerInterfaces;
 
-namespace WindowsFormsApplication1.ConsultationForms
+namespace WindowsFormsApplication1.Forms.Consultations
 {
     public partial class Read : Form
     {
@@ -26,14 +26,15 @@ namespace WindowsFormsApplication1.ConsultationForms
             txtLastNameConsultation.Text = patient.LastName;
             FillDataGridConsultations();
             ShowImportanColumnsOfDataGridViewConsultations();
+            txtFirstNameConsultation.ReadOnly = true;
+            txtLastNameConsultation.ReadOnly = true;
+
 
         }
 
         private void Add(object sender, EventArgs e)
         {
-            var consultation = new Consultation();
-            consultation.PatientId = patient.Id;
-            new Add(consultation, consultationManager).Show();
+            new Add(patient, consultationManager).Show();
         }
 
         private void dateOfConsultationPicker_KeyUp(object sender, KeyEventArgs e)

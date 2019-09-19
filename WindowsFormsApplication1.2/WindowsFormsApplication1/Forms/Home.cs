@@ -59,11 +59,11 @@ namespace FuaClinic
             new Read(patient, patientManager, addressManager, emergencyContactManager, testResultManager).Show();
         }
 
-        private void ViewPatientInfoThroughConsultation_Click(object sender, EventArgs e)
+        private void ViewConsultations(object sender, EventArgs e)
         {
             var patientId = Convert.ToInt32(dataGridViewConsultations.CurrentRow.Cells[1].Value.ToString());
             var patient = GetPatientById(patientId);
-            new Read(patient, patientManager, addressManager, emergencyContactManager, testResultManager).Show();
+            new WindowsFormsApplication1.Forms.Consultations.Read(patient, consultationManager).Show();
         }
 
         private void RefreshDataGridViewPatients_Click(object sender, EventArgs e)
@@ -116,10 +116,10 @@ namespace FuaClinic
             FillAppointmentsTableByDate();
         }
 
-        private void ViewPatientInforThroughAppointments_Click(object sender, EventArgs e)
+        private void ViewAppointments(object sender, EventArgs e)
         {
             var patient = GetPatientById(Convert.ToInt32(dataGridViewAppointments.CurrentRow.Cells[1].Value.ToString()));
-            new Read(patient, patientManager, addressManager, emergencyContactManager, testResultManager).Show();
+            new WindowsFormsApplication1.Forms.Appointments.Read(patient, patientManager, appointmentManager, testResultManager).Show();
         }
 
         // Patient Archive UI
@@ -278,6 +278,7 @@ namespace FuaClinic
             {
                 gender = "M";
             }
+            else
             {
                 gender = string.Empty;
             }

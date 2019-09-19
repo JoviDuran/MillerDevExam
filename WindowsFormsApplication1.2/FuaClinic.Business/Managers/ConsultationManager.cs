@@ -41,7 +41,7 @@ namespace FuaClinic.Business.Managers
             dataTable.Columns.Add("Id");
             dataTable.Columns.Add("PatientId");
             dataTable.Columns.Add("Diagnosis");
-            dataTable.Columns.Add("Date");
+            dataTable.Columns.Add("Date&Time");
 
             foreach (var consultation in consultations)
             {
@@ -49,7 +49,7 @@ namespace FuaClinic.Business.Managers
                 dataRow[0] = consultation.Id;
                 dataRow[1] = consultation.PatientId;
                 dataRow[2] = consultation.Diagnosis;
-                dataRow[3] = consultation.Date.ToShortDateString();
+                dataRow[3] = consultation.DateTime;
 
                 dataTable.Rows.Add(dataRow);
             }

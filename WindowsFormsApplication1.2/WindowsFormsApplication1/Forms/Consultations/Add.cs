@@ -1,20 +1,22 @@
 ﻿using FuaClinic.Business;
 using FuaClinic.Business.Managers;
 using FuaClinic.Business.Managers.ManagerInterfaces;
+using FuaClinic.Business.Models;
 using System;
+using System.Linq;
 using System.Windows.Forms;
 
-namespace WindowsFormsApplication1.ConsultationForms
+namespace WindowsFormsApplication1.Forms.Consultations
 {
     public partial class Add : Form
     {
         private IConsultationManager consultationManager;
-        Consultation consultation;
-
-        public Add(Consultation consultation, IConsultationManager consultationManager)
+        AppointmentManager appointmentManager = new AppointmentManager();
+        Patient patient;
+        public Add(Patient patient, IConsultationManager consultationManager)
         {
             InitializeComponent();
-            this.consultation = consultation;
+            this.patient = patient;
             this.consultationManager = consultationManager;
         }
 
@@ -22,16 +24,43 @@ namespace WindowsFormsApplication1.ConsultationForms
         {
             if (AreTextBoxesFilled())
             {
-                AddConsultation(consultation);
+                AddConsultation(CreateConsultation());
                 this.Close();
             }
+
+        }
+
+        public Appointment GetAppointment()
+        {
+            var i = appointmentManager.GetWithWhereCondition<Appointment>
+                ($"PatientId = {patient.Id} and DesiredDateTime = '{dateTimePickerDateOfConsultation.Value.ToString("yyyy-MM-dd hh:mm:ss")}'").FirstOrDefault();
+            return i;
+        }
+
+        public Consultation CreateConsultation()
+        {
+            var appointment = GetAppointment();
+            var consultation = new Consultation
+            {
+                PatientId = patient.Id,
+                Diagnosis = txtDiagnosis.Text,
+                DateTime = dateTimePickerDateOfConsultation.Value,
+            };
+
+            if (appointment != null)
+            {
+                consultation.AppointmentId = appointment.Id;
+            }
+            else
+            {
+                consultation.AppointmentId = null;
+            }
+
+            return consultation;
         }
 
         public void AddConsultation(Consultation consultation)
         {
-            consultation.Diagnosis = txtDiagnosis.Text;
-            consultation.Date = dateTimePickerDateOfConsultation.Value.Date;
-
             if (consultationManager.Add(consultation) > 0)
             {
                 MessageBox.Show("Consultation saved successfully");
@@ -46,6 +75,22 @@ namespace WindowsFormsApplication1.ConsultationForms
                 return false;
             }
             return true;
+        }
+
+        private void dateTimePickerDateOfConsultation_ValueChanged(object sender, EventArgs e)
+        {
+            var appointment = GetAppointment();
+            textBox1.Text = appointment.DesiredDateTime.ToString();
+
+        }
+
+        private void dateTimePickerDateOfConsultation_KeyUp(object sender, KeyEventArgs e)
+        {
+            var appointment = GetAppointment();
+            if (appointment != null)
+            {
+                textBox1.Text = appointment.DesiredDateTime.ToString();
+            }
         }
     }
 }
